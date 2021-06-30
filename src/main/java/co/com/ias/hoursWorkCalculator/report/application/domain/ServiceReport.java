@@ -1,23 +1,23 @@
-package co.com.ias.hoursWorkCalculator.serviceReport.application.domain;
+package co.com.ias.hoursWorkCalculator.report.application.domain;
 
 import co.com.ias.hoursWorkCalculator.commons.InputAttributeError;
 import co.com.ias.hoursWorkCalculator.commons.NonEmptyString;
 import co.com.ias.hoursWorkCalculator.commons.Validate;
+import co.com.ias.hoursWorkCalculator.report.application.errors.InputDataError;
 import io.vavr.control.Validation;
 import java.util.List;
 
 public class ServiceReport {
-    private final NonEmptyString technicianIdentity ;
-    private final NonEmptyString serviceIdentity;
+    private final TechnicianIdentityNumber technicianIdentity ;
+    private final ReportdentityNumber serviceIdentity;
     private final NonEmptyString dateAndTimeInit;
     private final NonEmptyString dateAndTimeFinish;
 
-    public ServiceReport(NonEmptyString technicianIdentity, NonEmptyString serviceIdentity, NonEmptyString dateAndTimeInit, NonEmptyString dateAndTimeFinish) {
+    public ServiceReport(TechnicianIdentityNumber technicianIdentity, ReportdentityNumber serviceIdentity, NonEmptyString dateAndTimeInit, NonEmptyString dateAndTimeFinish) {
         Validate.notNull(technicianIdentity, "Technician identity  can not be null");
-        Validate.notNull(technicianIdentity, "Service identity  can not be null");
-        Validate.notNull(technicianIdentity, "Technician identity  can not be null");
-        Validate.notNull(technicianIdentity, "Initial Date and time can not be null");
-        Validate.notNull(technicianIdentity, "Finish Date and time can not be null");
+        Validate.notNull(serviceIdentity, "Service identity  can not be null");
+        Validate.notNull(dateAndTimeInit, "Initial Date and time can not be null");
+        Validate.notNull(dateAndTimeFinish, "Finish Date and time can not be null");
 
         this.technicianIdentity = technicianIdentity;
         this.serviceIdentity = serviceIdentity;
@@ -25,18 +25,35 @@ public class ServiceReport {
         this.dateAndTimeFinish = dateAndTimeFinish;
 
     }
+
+    public TechnicianIdentityNumber getTechnicianIdentity() {
+        return technicianIdentity;
+    }
+
+    public ReportdentityNumber getServiceIdentity() {
+        return serviceIdentity;
+    }
+
+    public NonEmptyString getDateAndTimeInit() {
+        return dateAndTimeInit;
+    }
+
+    public NonEmptyString getDateAndTimeFinish() {
+        return dateAndTimeFinish;
+    }
+
     public static Validation<InputDataError,ServiceReport> parseReport(
             String technicianIdentity,
             String serviceIdentity,
             String dateAndTimeInit,
             String dateAndTimeFinish
             ){
-        var technicianIdentityValidation = NonEmptyString.parse(
+        var technicianIdentityValidation = TechnicianIdentityNumber.parse(
                 technicianIdentity,
                 "technicianIdentity"
         );
 
-        var serviceIdentityValidation = NonEmptyString.parse(
+        var serviceIdentityValidation = ReportdentityNumber.parse(
                 serviceIdentity,
                 "serviceIdentity"
         );
@@ -50,7 +67,10 @@ public class ServiceReport {
                 dateAndTimeFinish,
                 "dateAndTimeFinish"
         );
-        return Validation.combine(technicianIdentityValidation,serviceIdentityValidation,dateAndTimeInitValidation,dateAndTimeFinishValidation)
+        return Validation.combine(technicianIdentityValidation,
+                serviceIdentityValidation,
+                dateAndTimeInitValidation,
+                dateAndTimeFinishValidation)
                 .ap(ServiceReport::new).mapError(inputAttributeErrors ->
                 {
                     String message="There was an error with the input report service data.";
@@ -58,4 +78,6 @@ public class ServiceReport {
                     return new InputDataError(message,errors);
                 });
     }
+
+
 }

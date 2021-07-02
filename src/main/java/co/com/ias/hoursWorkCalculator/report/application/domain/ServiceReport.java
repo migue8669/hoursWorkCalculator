@@ -9,68 +9,94 @@ import java.util.List;
 
 public class ServiceReport {
     private final TechnicianIdentityNumber technicianIdentity ;
-    private final ReportdentityNumber serviceIdentity;
-    private final NonEmptyString dateAndTimeInit;
-    private final NonEmptyString dateAndTimeFinish;
+    private final ReportdentityNumber reportdentityNumber ;
+    private final NonEmptyString hourInit;
+    private final NonEmptyString dateInit;
+    private final NonEmptyString hourFinish;
+    private final NonEmptyString dateFinish;
 
-    public ServiceReport(TechnicianIdentityNumber technicianIdentity, ReportdentityNumber serviceIdentity, NonEmptyString dateAndTimeInit, NonEmptyString dateAndTimeFinish) {
+    public ServiceReport(TechnicianIdentityNumber technicianIdentity,ReportdentityNumber reportdentityNumber, NonEmptyString hourInit, NonEmptyString dateInit, NonEmptyString hourFinish, NonEmptyString dateFinish) {
         Validate.notNull(technicianIdentity, "Technician identity  can not be null");
-        Validate.notNull(serviceIdentity, "Service identity  can not be null");
-        Validate.notNull(dateAndTimeInit, "Initial Date and time can not be null");
-        Validate.notNull(dateAndTimeFinish, "Finish Date and time can not be null");
-
+        Validate.notNull(reportdentityNumber, "report identity  can not be null");
+        Validate.notNull(hourInit, "hourInit  can not be null");
+        Validate.notNull(dateInit, "dateInit can not be null");
+        Validate.notNull(hourFinish, "hourFinish can not be null");
+        Validate.notNull(dateFinish, "dateFinish can not be null");
+this.reportdentityNumber=reportdentityNumber;
         this.technicianIdentity = technicianIdentity;
-        this.serviceIdentity = serviceIdentity;
-        this.dateAndTimeInit = dateAndTimeInit;
-        this.dateAndTimeFinish = dateAndTimeFinish;
-
+        this.hourInit = hourInit;
+        this.hourFinish = hourFinish;
+        this.dateInit = dateInit;
+        this.dateFinish = dateFinish;
     }
 
     public TechnicianIdentityNumber getTechnicianIdentity() {
         return technicianIdentity;
     }
 
-    public ReportdentityNumber getServiceIdentity() {
-        return serviceIdentity;
+    public ReportdentityNumber getReportdentityNumber() {
+        return reportdentityNumber;
     }
 
-    public NonEmptyString getDateAndTimeInit() {
-        return dateAndTimeInit;
+    public NonEmptyString getHourInit() {
+        return hourInit;
     }
 
-    public NonEmptyString getDateAndTimeFinish() {
-        return dateAndTimeFinish;
+    public NonEmptyString getDateInit() {
+        return dateInit;
+    }
+
+    public NonEmptyString getHourFinish() {
+        return hourFinish;
+    }
+
+    public NonEmptyString getDateFinish() {
+        return dateFinish;
     }
 
     public static Validation<InputDataError,ServiceReport> parseReport(
             String technicianIdentity,
-            String serviceIdentity,
-            String dateAndTimeInit,
-            String dateAndTimeFinish
+            String reportdentityNumber,
+            String hourInit,
+            String dateInit,
+            String hourFinish,
+            String dateFinish
             ){
         var technicianIdentityValidation = TechnicianIdentityNumber.parse(
                 technicianIdentity,
                 "technicianIdentity"
         );
 
-        var serviceIdentityValidation = ReportdentityNumber.parse(
-                serviceIdentity,
+        var reportdentityNumberValidation = ReportdentityNumber.parse(
+                reportdentityNumber,
                 "serviceIdentity"
         );
 
-        var dateAndTimeInitValidation = NonEmptyString.parse(
-                dateAndTimeInit,
-                "dateAndTimeInit"
+        var hourInitValidation = NonEmptyString.parse(
+                hourInit,
+                "hourInit"
         );
 
-        var dateAndTimeFinishValidation = NonEmptyString.parse(
-                dateAndTimeFinish,
-                "dateAndTimeFinish"
+        var dateInitValidation = NonEmptyString.parse(
+                dateInit,
+                "dateInit"
+        );
+
+        var hourFinishValidation = NonEmptyString.parse(
+                hourFinish,
+                "hourFinish"
+        );
+
+        var dateFinishValidation = NonEmptyString.parse(
+                dateFinish,
+                "dateFinish"
         );
         return Validation.combine(technicianIdentityValidation,
-                serviceIdentityValidation,
-                dateAndTimeInitValidation,
-                dateAndTimeFinishValidation)
+                reportdentityNumberValidation,
+                hourInitValidation,
+                dateInitValidation,
+                hourFinishValidation,
+                dateFinishValidation)
                 .ap(ServiceReport::new).mapError(inputAttributeErrors ->
                 {
                     String message="There was an error with the input report service data.";

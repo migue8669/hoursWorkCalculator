@@ -48,12 +48,15 @@ public class SqlReportRepository implements ReportRepository {
     public void storeReport(ServiceReport serviceReport) {
         jdbcTemplate.update(connection -> {
             final PreparedStatement preparedStatement = connection
-                    .prepareStatement("INSERT INTO REPORT (ID_NUMBER_REPORT, ID_NUMBER_TECHNICIAN, DATE_AND_TIME_INIT, DATE_AND_TIME_FINISH) VALUES (?, ?, ?, ?)");
+                    .prepareStatement("INSERT INTO REPORT (ID_NUMBER_REPORT, ID_NUMBER_TECHNICIAN, DATE_INIT, DATE_FINISH,HOUR_INIT,HOUR_FINISH) VALUES (?, ?, ?, ?,?,?)");
 
-            preparedStatement.setString(1, serviceReport.getServiceIdentity().getValue());
+            preparedStatement.setString(1, serviceReport.getReportdentityNumber().getValue());
             preparedStatement.setString(2, serviceReport.getTechnicianIdentity().getValue());
-            preparedStatement.setString(3, serviceReport.getDateAndTimeInit().getValue());
-            preparedStatement.setString(4, serviceReport.getDateAndTimeFinish().getValue());
+            preparedStatement.setString(3, serviceReport.getHourInit().getValue());
+            preparedStatement.setString(4, serviceReport.getDateInit().getValue());
+            preparedStatement.setString(5, serviceReport.getHourFinish().getValue());
+            preparedStatement.setString(6, serviceReport.getDateFinish().getValue());
+
 
             return preparedStatement;
         });
@@ -76,9 +79,13 @@ public class SqlReportRepository implements ReportRepository {
         return ServiceReport.parseReport(
                 rs.getString("ID_NUMBER_REPORT"),
                 rs.getString("ID_NUMBER_TECHNICIAN"),
-                rs.getString("DATE_AND_TIME_INIT"),
-                rs.getString("DATE_AND_TIME_FINISH")
-        ).get();
+                rs.getString("DATE_INIT"),
+                rs.getString("DATE_FINISH"),
+                rs.getString("HOUR_INIT"),
+                rs.getString("HOUR_FINISH")
+
+
+                ).get();
     }
 
 }

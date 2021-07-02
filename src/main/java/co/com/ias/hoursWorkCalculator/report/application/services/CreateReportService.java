@@ -22,10 +22,13 @@ public class CreateReportService implements CreateReportUseCase {
     public CreateReportResponse execute(CreateReportRequest request) {
         Validation<InputDataError, ServiceReport> validation = ServiceReport.parseReport(
                 request.getTechnicianIdentity(),
-                request.getServiceIdentity(),
-                request.getDateAndTimeInit(),
-                request.getDateAndTimeFinish()
-        );
+                request.getReportdentityNumber(),
+                request.getHourInit(),
+                request.getDateInit(),
+                request.getHourFinish(),
+                request.getDateFinish()
+
+                );
 
         if(validation.isInvalid()) {
             throw validation.getError();
@@ -33,7 +36,7 @@ public class CreateReportService implements CreateReportUseCase {
 
         final ServiceReport serviceReport = validation.get();
 
-        ReportdentityNumber reportdentityNumber = serviceReport.getServiceIdentity();
+        ReportdentityNumber reportdentityNumber = serviceReport.getReportdentityNumber();
         Optional<ServiceReport> studentById = repository.getReportById(reportdentityNumber);
 
         if (studentById.isPresent()) {

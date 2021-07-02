@@ -20,7 +20,7 @@ public class InMemoryReportRepository implements ReportRepository {
 
     @Override
     public void storeReport(ServiceReport student) {
-        database.put(student.getServiceIdentity(), student);
+        database.put(student.getReportdentityNumber(), student);
     }
 
     @Override

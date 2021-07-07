@@ -2,6 +2,7 @@ package co.com.ias.hoursWorkCalculator.report.application.domain;
 
 import co.com.ias.hoursWorkCalculator.commons.InputAttributeError;
 import co.com.ias.hoursWorkCalculator.commons.NonEmptyString;
+import co.com.ias.hoursWorkCalculator.commons.Validate;
 import co.com.ias.hoursWorkCalculator.report.application.errors.InputDataError;
 import io.vavr.control.Validation;
 
@@ -9,7 +10,8 @@ import java.util.List;
 
 public class ReportWeekly {
     private final TechnicianIdentityNumber technicianIdentity ;
-    private final ReportdentityNumber reportdentityNumber;
+
+    private final ReportIdentityNumber reportIdentityNumber;
     private final NonEmptyString hour;
     private final NonEmptyString nightHour;
     private final NonEmptyString sundayHour;
@@ -21,8 +23,8 @@ public class ReportWeekly {
         return technicianIdentity;
     }
 
-    public ReportdentityNumber getReportdentityNumber() {
-        return reportdentityNumber;
+    public ReportIdentityNumber getReportIdentityNumber() {
+        return reportIdentityNumber;
     }
 
     public NonEmptyString getHour() {
@@ -49,36 +51,49 @@ public class ReportWeekly {
         return extraSundayHour;
     }
 
-    public ReportWeekly(TechnicianIdentityNumber technicianIdentity, ReportdentityNumber reportdentityNumber, NonEmptyString hour, NonEmptyString nightHour, NonEmptyString sundayHour, NonEmptyString extraHour, NonEmptyString extranightHour, NonEmptyString extraSundayHour) {
+    public ReportWeekly(TechnicianIdentityNumber technicianIdentity, ReportIdentityNumber reportIdentityNumber, NonEmptyString hour, NonEmptyString nightHour, NonEmptyString sundayHour, NonEmptyString extraHour, NonEmptyString extraNightHour, NonEmptyString extraSundayHour) {
+        Validate.notNull(technicianIdentity, "Technician identity  can not be null");
+        Validate.notNull(reportIdentityNumber, "report identity  can not be null");
+        Validate.notNull(hour, "hour  can not be null");
+        Validate.notNull(nightHour, "nightHour can not be null");
+        Validate.notNull(sundayHour, "sundayHour can not be null");
+        Validate.notNull(extraHour, "extraHour can not be null");
+        Validate.notNull(extraNightHour, "extraNightHour can not be null");
+
+        Validate.notNull(extraSundayHour, "extraSundayHour can not be null");
+
         this.technicianIdentity = technicianIdentity;
-        this.reportdentityNumber = reportdentityNumber;
+
+        this.reportIdentityNumber = reportIdentityNumber;
         this.hour = hour;
         this.nightHour = nightHour;
         this.sundayHour = sundayHour;
         this.extraHour = extraHour;
-        this.extraNightHour = extranightHour;
+        this.extraNightHour = extraNightHour;
         this.extraSundayHour = extraSundayHour;
     }
 
-    public static Validation<InputDataError,ReportWeekly> parseReport(
-            String reportIdentityNumber,
+    public static Validation<InputDataError,ReportWeekly> WeeklyReport(
             String technicianIdentity,
+            String reportIdentityNumber,
             String hour,
-             String nightHour,
-                  String sundayHour,
-                    String extraHour,
-                    String extraNightHour,
-                    String extraSundayHour
+            String nightHour,
+            String sundayHour,
+            String extraHour,
+            String extraNightHour,
+            String extraSundayHour
     ){
         var technicianIdentityValidation = TechnicianIdentityNumber.parse(
                 technicianIdentity,
                 "technicianIdentity"
         );
-
-        var reportIdentityNumberValidation = ReportdentityNumber.parse(
+        var reportIdentityNumberValidation = ReportIdentityNumber.parse(
                 reportIdentityNumber,
                 "reportIdentityNumber"
         );
+
+
+
 
         var hourValidation = NonEmptyString.parse(
                 hour,
@@ -107,7 +122,8 @@ public class ReportWeekly {
                 extraSundayHour,
                 "extraSundayHour"
         );
-        return Validation.combine(technicianIdentityValidation,
+        return Validation.combine(
+                technicianIdentityValidation,
                 reportIdentityNumberValidation,
                 hourValidation,
                 nightHourValidation,

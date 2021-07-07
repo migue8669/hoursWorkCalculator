@@ -10,14 +10,14 @@ public class CreateReportResponse implements ApplicationResponse {
         this.serviceReport = serviceReport;
     }
 
-    public ServiceReport getStudent() {
+    public ServiceReport getServiceReport() {
         return serviceReport;
     }
 
     @Override
     public String toString() {
-        return "CreateStudentResponse{" +
-                "student=" + serviceReport +
+        return "CreateReportResponse{" +
+                "report service=" + serviceReport +
                 '}';
     }
 }

@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-public class ReportdentityNumber {
+public class ReportIdentityNumber {
     private final String value;
 
     private static final Pattern pattern = Pattern.compile("^\\d{8,20}$");
@@ -16,14 +16,14 @@ public class ReportdentityNumber {
     private static final String EMPTY_MESSAGE = "Service Identity Number can not be empty";
     private static final String INVALID_PATTERN_MESSAGE = "Invalid identification number";
 
-    private ReportdentityNumber(String value) {
+    private ReportIdentityNumber(String value) {
         Validate.notNull(value, NULL_MESSAGE);
         Validate.isTrue(StringUtils.isNotBlank(value), EMPTY_MESSAGE);
         Validate.isTrue(pattern.matcher(value).matches(), INVALID_PATTERN_MESSAGE);
         this.value = value;
     }
 
-    public static Validation<InputAttributeError, ReportdentityNumber> parse(
+    public static Validation<InputAttributeError, ReportIdentityNumber> parse(
             String unsafeValue,
             String attributeName
     ) {
@@ -39,7 +39,7 @@ public class ReportdentityNumber {
             return Validation.invalid(new InputAttributeError(attributeName, INVALID_PATTERN_MESSAGE));
         }
 
-        return Validation.valid(new ReportdentityNumber(unsafeValue));
+        return Validation.valid(new ReportIdentityNumber(unsafeValue));
     }
 
 
@@ -53,7 +53,7 @@ public class ReportdentityNumber {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ReportdentityNumber that = (ReportdentityNumber) o;
+        ReportIdentityNumber that = (ReportIdentityNumber) o;
         return Objects.equals(value, that.value);
     }
 

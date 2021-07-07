@@ -2,29 +2,29 @@ package co.com.ias.hoursWorkCalculator.report.application.errors;
 
 import co.com.ias.hoursWorkCalculator.commons.errors.ApplicationError;
 import co.com.ias.hoursWorkCalculator.commons.errors.HttpStatusCode;
-import co.com.ias.hoursWorkCalculator.report.application.domain.ReportdentityNumber;
+import co.com.ias.hoursWorkCalculator.report.application.domain.ReportIdentityNumber;
 
 import java.util.Map;
 
 public class ReportAlreadyExistsError extends ApplicationError {
-    private ReportdentityNumber reportdentityNumber;
+    private ReportIdentityNumber reportIdentityNumber;
 
-    public ReportdentityNumber getServiceIdentity() {
-        return reportdentityNumber;
+    public ReportIdentityNumber getServiceIdentity() {
+        return reportIdentityNumber;
     }
 
-    public void setServiceIdentity(ReportdentityNumber reportdentityNumber) {
-        this.reportdentityNumber = reportdentityNumber;
+    public void setServiceIdentity(ReportIdentityNumber reportIdentityNumber) {
+        this.reportIdentityNumber = reportIdentityNumber;
     }
 
-    public ReportAlreadyExistsError(ReportdentityNumber reportdentityNumber) {
-        this.reportdentityNumber = reportdentityNumber;
+    public ReportAlreadyExistsError(ReportIdentityNumber reportIdentityNumber) {
+        this.reportIdentityNumber = reportIdentityNumber;
     }
 
 
     @Override
     public String getMessage() {
-        return "The service report with id number: " + reportdentityNumber + " already exists.";
+        return "The service report with id number: " + reportIdentityNumber + " already exists.";
     }
 
     @Override
@@ -40,7 +40,7 @@ public class ReportAlreadyExistsError extends ApplicationError {
     @Override
     public Map<String, Object> metadata() {
         return Map.of(
-                "idNumber", reportdentityNumber
+                "idNumber", reportIdentityNumber
         );
     }
 }

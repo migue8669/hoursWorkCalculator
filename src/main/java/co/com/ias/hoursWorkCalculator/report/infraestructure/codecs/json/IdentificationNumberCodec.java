@@ -1,6 +1,6 @@
 package co.com.ias.hoursWorkCalculator.report.infraestructure.codecs.json;
 
-import co.com.ias.hoursWorkCalculator.report.application.domain.ReportdentityNumber;
+import co.com.ias.hoursWorkCalculator.report.application.domain.ReportIdentityNumber;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -16,20 +16,20 @@ import java.io.IOException;
 
 public class IdentificationNumberCodec {
 
-    public static class IdentificationNumberEncoder extends JsonSerializer<ReportdentityNumber> {
+    public static class IdentificationNumberEncoder extends JsonSerializer<ReportIdentityNumber> {
 
         @Override
-        public void serialize(ReportdentityNumber identificationNumber, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        public void serialize(ReportIdentityNumber identificationNumber, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
             jsonGenerator.writeString(identificationNumber.getValue());
         }
     }
 
-    public static class IdentificationNumberDecoder extends JsonDeserializer<ReportdentityNumber> {
+    public static class IdentificationNumberDecoder extends JsonDeserializer<ReportIdentityNumber> {
 
         @Override
-        public ReportdentityNumber deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public ReportIdentityNumber deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
             final String valueAsString = jsonParser.getValueAsString();
-            return ReportdentityNumber.parse(valueAsString, "inputData").get();
+            return ReportIdentityNumber.parse(valueAsString, "inputData").get();
         }
     }
 

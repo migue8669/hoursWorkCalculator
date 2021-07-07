@@ -2,11 +2,11 @@ package co.com.ias.hoursWorkCalculator.report.application.services;
 
 
 import co.com.ias.hoursWorkCalculator.report.application.domain.ReportWeekly;
-import co.com.ias.hoursWorkCalculator.report.application.domain.ReportdentityNumber;
-import co.com.ias.hoursWorkCalculator.report.application.domain.ServiceReport;
+import co.com.ias.hoursWorkCalculator.report.application.domain.ReportIdentityNumber;
+import co.com.ias.hoursWorkCalculator.report.application.domain.TechnicianIdentityNumber;
 import co.com.ias.hoursWorkCalculator.report.application.errors.InputDataError;
 import co.com.ias.hoursWorkCalculator.report.application.errors.ReportAlreadyExistsError;
-import co.com.ias.hoursWorkCalculator.report.application.model.CreateReportResponse;
+import co.com.ias.hoursWorkCalculator.report.application.errors.ReportWeeklyAlreadyExistError;
 import co.com.ias.hoursWorkCalculator.report.application.model.CreateReportWeeklyRequest;
 import co.com.ias.hoursWorkCalculator.report.application.model.CreateReportWeeklyResponse;
 import co.com.ias.hoursWorkCalculator.report.application.ports.in.CreateReportWeeklyUseCase;
@@ -24,9 +24,10 @@ public class CreateReportWeeklyService implements CreateReportWeeklyUseCase {
 
     @Override
     public CreateReportWeeklyResponse execute(CreateReportWeeklyRequest request) {
-        Validation<InputDataError, ReportWeekly> validation = ReportWeekly.parseReport(
+        Validation<InputDataError, ReportWeekly> validation = ReportWeekly.WeeklyReport(
                 request.getTechnicianIdentity(),
-                request.getReportdentityNumber(),
+
+                request.getReportIdentityNumber(),
                 request.getHour(),
                 request.getNightHour(),
                 request.getSundayHour(),
@@ -35,22 +36,23 @@ public class CreateReportWeeklyService implements CreateReportWeeklyUseCase {
                 request.getExtraSundayHour()
 
         );
-
+        System.out.println(request);
+        System.out.println(validation);
         if(validation.isInvalid()) {
             throw validation.getError();
         }
 
-        final ReportWeekly serviceReport = validation.get();
+        final ReportWeekly reportWeekly = validation.get();
 
-        ReportdentityNumber reportdentityNumber = serviceReport.getReportdentityNumber();
-        Optional<ReportWeekly> studentById = reportWeeklyRepository.getReportWeeklyById(reportdentityNumber);
-
-        if (studentById.isPresent()) {
-            throw new ReportAlreadyExistsError(reportdentityNumber);
+        TechnicianIdentityNumber technicianIdentityNumber = reportWeekly.getTechnicianIdentity();
+        Optional<ReportWeekly> reportWeeklyById = reportWeeklyRepository.getReportWeeklyById(technicianIdentityNumber);
+        System.out.println(reportWeeklyById);
+        if (reportWeeklyById.isPresent()) {
+            throw new ReportWeeklyAlreadyExistError(technicianIdentityNumber);
         }
 
-        reportWeeklyRepository.storeReportWeekly(serviceReport);
+        reportWeeklyRepository.storeReportWeekly(reportWeekly);
 
-        return new CreateReportWeeklyResponse(serviceReport);
+        return new CreateReportWeeklyResponse(reportWeekly);
     }    }
 

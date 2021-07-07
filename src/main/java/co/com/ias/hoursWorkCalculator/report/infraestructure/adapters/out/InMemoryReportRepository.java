@@ -1,6 +1,6 @@
 package co.com.ias.hoursWorkCalculator.report.infraestructure.adapters.out;
 
-import co.com.ias.hoursWorkCalculator.report.application.domain.ReportdentityNumber;
+import co.com.ias.hoursWorkCalculator.report.application.domain.ReportIdentityNumber;
 import co.com.ias.hoursWorkCalculator.report.application.domain.ServiceReport;
 import co.com.ias.hoursWorkCalculator.report.application.ports.out.ReportRepository;
 
@@ -10,17 +10,17 @@ import java.util.Map;
 import java.util.Optional;
 
 public class InMemoryReportRepository implements ReportRepository {
-    private final Map<ReportdentityNumber, ServiceReport> database = new HashMap<>();
+    private final Map<ReportIdentityNumber, ServiceReport> database = new HashMap<>();
 
     @Override
-    public Optional<ServiceReport> getReportById(ReportdentityNumber reportdentityNumber) {
-        ServiceReport serviceReport = database.get(reportdentityNumber);
+    public Optional<ServiceReport> getReportById(ReportIdentityNumber reportIdentityNumber) {
+        ServiceReport serviceReport = database.get(reportIdentityNumber);
         return Optional.ofNullable(serviceReport);
     }
 
     @Override
-    public void storeReport(ServiceReport student) {
-        database.put(student.getReportdentityNumber(), student);
+    public void storeReport(ServiceReport serviceReport) {
+        database.put(serviceReport.getReportIdentityNumber(), serviceReport);
     }
 
     @Override

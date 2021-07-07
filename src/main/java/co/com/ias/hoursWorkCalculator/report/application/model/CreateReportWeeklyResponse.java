@@ -7,14 +7,15 @@ import co.com.ias.hoursWorkCalculator.report.application.domain.ServiceReport;
 public class CreateReportWeeklyResponse implements ApplicationResponse {
     private final ReportWeekly reportWeekly;
 
+
+
+    public CreateReportWeeklyResponse(ReportWeekly reportWeekly) {
+        this.reportWeekly = reportWeekly;
+    }
     @Override
     public String toString() {
         return "CreateReportWeeklyResponse{" +
                 "reportWeekly=" + reportWeekly +
                 '}';
-    }
-
-    public CreateReportWeeklyResponse(ReportWeekly reportWeekly) {
-        this.reportWeekly = reportWeekly;
     }
 }

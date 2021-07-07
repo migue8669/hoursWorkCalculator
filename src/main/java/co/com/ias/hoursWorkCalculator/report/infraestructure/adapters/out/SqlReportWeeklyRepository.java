@@ -1,9 +1,8 @@
 package co.com.ias.hoursWorkCalculator.report.infraestructure.adapters.out;
 
 import co.com.ias.hoursWorkCalculator.report.application.domain.ReportWeekly;
-import co.com.ias.hoursWorkCalculator.report.application.domain.ReportdentityNumber;
-import co.com.ias.hoursWorkCalculator.report.application.domain.ServiceReport;
-import co.com.ias.hoursWorkCalculator.report.application.ports.out.ReportRepository;
+import co.com.ias.hoursWorkCalculator.report.application.domain.ReportIdentityNumber;
+import co.com.ias.hoursWorkCalculator.report.application.domain.TechnicianIdentityNumber;
 import co.com.ias.hoursWorkCalculator.report.application.ports.out.ReportWeeklyRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
@@ -28,10 +27,10 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
         private final RowMapper<ReportWeekly> reportRowMapper = (rs, rowNum) -> fromResultSet(rs);
 
         @Override
-        public Optional<ReportWeekly> getReportWeeklyById(ReportdentityNumber reportdentityNumber) {
+        public Optional<ReportWeekly> getReportWeeklyById(TechnicianIdentityNumber technicianIdentityNumber) {
             final String sql = "SELECT * FROM REPORT_WEEKLY WHERE ID_NUMBER_REPORT = ?";
             PreparedStatementSetter preparedStatementSetter = ps -> {
-                ps.setString(1, reportdentityNumber.getValue());
+                ps.setString(1, technicianIdentityNumber.getValue());
             };
             final ResultSetExtractor<Optional<ReportWeekly>> resultSetExtractor = rs -> {
                 if (rs.next()) {
@@ -51,10 +50,10 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
         public void storeReportWeekly(ReportWeekly reportWeekly) {
             jdbcTemplate.update(connection -> {
                 final PreparedStatement preparedStatement = connection
-                        .prepareStatement("INSERT INTO REPORT_WEEKLY (ID_NUMBER_REPORT, ID_NUMBER_TECHNICIAN, NORMAL_HOUR, NOCTURNAL_HOUR,SUNDAY_HOUR,EXTRA_NORMAL_HOUR,EXTRA_NOCTURNAL_HOUR,EXTRA_SUNDAY_HOUR) VALUES (?, ?, ?, ?,?,?,?,?)");
+                        .prepareStatement("INSERT INTO REPORT_WEEKLY (ID_NUMBER_TECHNICIAN,ID_NUMBER_REPORT, NORMAL_HOUR, NOCTURNAL_HOUR,SUNDAY_HOUR,EXTRA_NORMAL_HOUR,EXTRA_NOCTURNAL_HOUR,EXTRA_SUNDAY_HOUR) VALUES (?, ?, ?, ?,?,?,?,?)");
+                preparedStatement.setString(1, reportWeekly.getTechnicianIdentity().getValue());
 
-                preparedStatement.setString(1, reportWeekly.getReportdentityNumber().getValue());
-                preparedStatement.setString(2, reportWeekly.getTechnicianIdentity().getValue());
+                preparedStatement.setString(2, reportWeekly.getReportIdentityNumber().getValue());
                 preparedStatement.setString(3, reportWeekly.getHour().getValue());
                 preparedStatement.setString(4, reportWeekly.getNightHour().getValue());
                 preparedStatement.setString(5, reportWeekly.getSundayHour().getValue());
@@ -81,9 +80,10 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
 
 
         private static ReportWeekly fromResultSet(ResultSet rs) throws SQLException {
-            return ReportWeekly.parseReport(
-                    rs.getString("ID_NUMBER_REPORT"),
+            return ReportWeekly.WeeklyReport(
                     rs.getString("ID_NUMBER_TECHNICIAN"),
+
+                    rs.getString("ID_NUMBER_REPORT"),
                     rs.getString("NORMAL_HOUR"),
                     rs.getString("NOCTURNAL_HOUR"),
                     rs.getString("SUNDAY_HOUR"),

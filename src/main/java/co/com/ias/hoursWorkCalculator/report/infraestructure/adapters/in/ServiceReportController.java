@@ -8,6 +8,7 @@ import co.com.ias.hoursWorkCalculator.report.application.ports.in.CreateReportWe
 import co.com.ias.hoursWorkCalculator.report.application.ports.in.ListReportsUseCase;
 import co.com.ias.hoursWorkCalculator.report.infraestructure.commons.UseCaseHttpExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,7 +50,7 @@ public class ServiceReportController {
                 request
         );
     }
-    @RequestMapping(value="/new", method =RequestMethod.POST)
+    @PostMapping(value="/new", produces="application/json;charset=UTF-8")
     public ResponseEntity createReportWeeklyHandler(
             @RequestBody CreateReportWeeklyRequest request
     ) {

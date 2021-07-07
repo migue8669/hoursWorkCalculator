@@ -7,16 +7,15 @@ import io.vavr.control.Validation;
 import java.util.Objects;
 
 public class CreateReportWeeklyRequest implements ApplicationRequest {
-   private   String technicianIdentity;
-    private  String reportdentityNumber;
-    private  String hour;
+    private String technicianIdentity;
+    private String reportIdentityNumber;
+    private String hour;
 
-    private   String nightHour;
-    private   String sundayHour;
-    private   String extraHour;
-    private   String extraNightHour;
-    private   String extraSundayHour;
-
+    private String nightHour;
+    private String sundayHour;
+    private String extraHour;
+    private String extraNightHour;
+    private String extraSundayHour;
 
     public String getTechnicianIdentity() {
         return technicianIdentity;
@@ -26,12 +25,12 @@ public class CreateReportWeeklyRequest implements ApplicationRequest {
         this.technicianIdentity = technicianIdentity;
     }
 
-    public String getReportdentityNumber() {
-        return reportdentityNumber;
+    public String getReportIdentityNumber() {
+        return reportIdentityNumber;
     }
 
-    public void setReportdentityNumber(String reportdentityNumber) {
-        this.reportdentityNumber = reportdentityNumber;
+    public void setReportIdentityNumber(String reportIdentityNumber) {
+        this.reportIdentityNumber = reportIdentityNumber;
     }
 
     public String getHour() {
@@ -48,20 +47,6 @@ public class CreateReportWeeklyRequest implements ApplicationRequest {
 
     public void setNightHour(String nightHour) {
         this.nightHour = nightHour;
-    }
-
-    @Override
-    public String toString() {
-        return "CreateReportWeeklyRequest{" +
-                "technicianIdentity='" + technicianIdentity + '\'' +
-                ", reportdentityNumber='" + reportdentityNumber + '\'' +
-                ", hour='" + hour + '\'' +
-                ", nightHour='" + nightHour + '\'' +
-                ", sundayHour='" + sundayHour + '\'' +
-                ", extraHour='" + extraHour + '\'' +
-                ", extraNightHour='" + extraNightHour + '\'' +
-                ", extraSundayHour='" + extraSundayHour + '\'' +
-                '}';
     }
 
     public String getSundayHour() {
@@ -96,9 +81,25 @@ public class CreateReportWeeklyRequest implements ApplicationRequest {
         this.extraSundayHour = extraSundayHour;
     }
 
-    public CreateReportWeeklyRequest(String technicianIdentity, String reportdentityNumber, String hour, String nightHour, String sundayHour, String extraHour, String extraNightHour, String extraSundayHour) {
+    @Override
+    public String toString() {
+        return "CreateReportWeeklyRequest{" +
+                "technicianIdentity='" + technicianIdentity + '\'' +
+
+                ", reportIdentityNumber='" + reportIdentityNumber + '\'' +
+                ", hour='" + hour + '\'' +
+                ", nightHour='" + nightHour + '\'' +
+                ", sundayHour='" + sundayHour + '\'' +
+                ", extraHour='" + extraHour + '\'' +
+                ", extraNightHour='" + extraNightHour + '\'' +
+                ", extraSundayHour='" + extraSundayHour + '\'' +
+                '}';
+    }
+
+
+    public CreateReportWeeklyRequest(String technicianIdentity, String reportIdentityNumber, String hour, String nightHour, String sundayHour, String extraHour, String extraNightHour, String extraSundayHour) {
         this.technicianIdentity = technicianIdentity;
-        this.reportdentityNumber = reportdentityNumber;
+        this.reportIdentityNumber = reportIdentityNumber;
         this.hour = hour;
         this.nightHour = nightHour;
         this.sundayHour = sundayHour;
@@ -112,11 +113,12 @@ public class CreateReportWeeklyRequest implements ApplicationRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CreateReportWeeklyRequest that = (CreateReportWeeklyRequest) o;
-        return technicianIdentity.equals(that.technicianIdentity) && reportdentityNumber.equals(that.reportdentityNumber) && hour.equals(that.hour) && nightHour.equals(that.nightHour) && sundayHour.equals(that.sundayHour) && extraHour.equals(that.extraHour) && extraNightHour.equals(that.extraNightHour) && extraSundayHour.equals(that.extraSundayHour);
+        return Objects.equals(technicianIdentity, that.technicianIdentity) && Objects.equals(reportIdentityNumber, that.reportIdentityNumber) && Objects.equals(hour, that.hour) && Objects.equals(nightHour, that.nightHour) && Objects.equals(sundayHour, that.sundayHour) && Objects.equals(extraHour, that.extraHour) && Objects.equals(extraNightHour, that.extraNightHour) && Objects.equals(extraSundayHour, that.extraSundayHour);
+
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(technicianIdentity, reportdentityNumber, hour, nightHour, sundayHour, extraHour, extraNightHour, extraSundayHour);
+        return Objects.hash(technicianIdentity, reportIdentityNumber, hour, nightHour, sundayHour, extraHour, extraNightHour, extraSundayHour);
     }
 }

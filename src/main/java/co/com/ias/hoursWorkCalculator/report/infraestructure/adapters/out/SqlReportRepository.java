@@ -1,6 +1,6 @@
 package co.com.ias.hoursWorkCalculator.report.infraestructure.adapters.out;
 
-import co.com.ias.hoursWorkCalculator.report.application.domain.ReportdentityNumber;
+import co.com.ias.hoursWorkCalculator.report.application.domain.ReportIdentityNumber;
 import co.com.ias.hoursWorkCalculator.report.application.domain.ServiceReport;
 import co.com.ias.hoursWorkCalculator.report.application.ports.out.ReportRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -27,10 +27,10 @@ public class SqlReportRepository implements ReportRepository {
     private final RowMapper<ServiceReport> reportRowMapper = (rs, rowNum) -> fromResultSet(rs);
 
     @Override
-    public Optional<ServiceReport> getReportById(ReportdentityNumber reportdentityNumber) {
+    public Optional<ServiceReport> getReportById(ReportIdentityNumber reportIdentityNumber) {
         final String sql = "SELECT * FROM REPORT WHERE ID_NUMBER_REPORT = ?";
         PreparedStatementSetter preparedStatementSetter = ps -> {
-            ps.setString(1, reportdentityNumber.getValue());
+            ps.setString(1, reportIdentityNumber.getValue());
         };
         final ResultSetExtractor<Optional<ServiceReport>> resultSetExtractor = rs -> {
             if (rs.next()) {
@@ -50,7 +50,7 @@ public class SqlReportRepository implements ReportRepository {
             final PreparedStatement preparedStatement = connection
                     .prepareStatement("INSERT INTO REPORT (ID_NUMBER_REPORT, ID_NUMBER_TECHNICIAN, DATE_INIT, DATE_FINISH,HOUR_INIT,HOUR_FINISH) VALUES (?, ?, ?, ?,?,?)");
 
-            preparedStatement.setString(1, serviceReport.getReportdentityNumber().getValue());
+            preparedStatement.setString(1, serviceReport.getReportIdentityNumber().getValue());
             preparedStatement.setString(2, serviceReport.getTechnicianIdentity().getValue());
             preparedStatement.setString(3, serviceReport.getHourInit().getValue());
             preparedStatement.setString(4, serviceReport.getDateInit().getValue());

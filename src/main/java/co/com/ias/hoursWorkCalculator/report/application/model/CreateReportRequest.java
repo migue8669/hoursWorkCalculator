@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class CreateReportRequest implements ApplicationRequest {
     private String technicianIdentity ;
-    private String reportdentityNumber;
+    private String reportIdentityNumber;
     private String  hourInit;
     private String  dateInit;
     private String  hourFinish;
@@ -17,12 +17,12 @@ public class CreateReportRequest implements ApplicationRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CreateReportRequest that = (CreateReportRequest) o;
-        return Objects.equals(technicianIdentity, that.technicianIdentity) && Objects.equals(reportdentityNumber, that.reportdentityNumber) && Objects.equals(hourInit, that.hourInit) && Objects.equals(dateInit, that.dateInit) && Objects.equals(hourFinish, that.hourFinish) && Objects.equals(dateFinish, that.dateFinish);
+        return Objects.equals(technicianIdentity, that.technicianIdentity) && Objects.equals(reportIdentityNumber, that.reportIdentityNumber) && Objects.equals(hourInit, that.hourInit) && Objects.equals(dateInit, that.dateInit) && Objects.equals(hourFinish, that.hourFinish) && Objects.equals(dateFinish, that.dateFinish);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(technicianIdentity, reportdentityNumber, hourInit, dateInit, hourFinish, dateFinish);
+        return Objects.hash(technicianIdentity, reportIdentityNumber, hourInit, dateInit, hourFinish, dateFinish);
     }
 
     public String getTechnicianIdentity() {
@@ -33,12 +33,12 @@ public class CreateReportRequest implements ApplicationRequest {
         this.technicianIdentity = technicianIdentity;
     }
 
-    public String getReportdentityNumber() {
-        return reportdentityNumber;
+    public String getReportIdentityNumber() {
+        return reportIdentityNumber;
     }
 
-    public void setReportdentityNumber(String reportdentityNumber) {
-        this.reportdentityNumber = reportdentityNumber;
+    public void setReportIdentityNumber(String reportIdentityNumber) {
+        this.reportIdentityNumber = reportIdentityNumber;
     }
 
     public String getHourInit() {
@@ -77,7 +77,7 @@ public class CreateReportRequest implements ApplicationRequest {
     public String toString() {
         return "CreateReportRequest{" +
                 "technicianIdentity='" + technicianIdentity + '\'' +
-                ", reportdentityNumber='" + reportdentityNumber + '\'' +
+                ", reportIdentityNumber='" + reportIdentityNumber + '\'' +
                 ", hourInit='" + hourInit + '\'' +
                 ", dateInit='" + dateInit + '\'' +
                 ", hourFinish='" + hourFinish + '\'' +
@@ -85,9 +85,9 @@ public class CreateReportRequest implements ApplicationRequest {
                 '}';
     }
 
-    public CreateReportRequest(String technicianIdentity, String reportdentityNumber, String hourInit, String dateInit, String hourFinish, String dateFinish) {
+    public CreateReportRequest(String technicianIdentity, String reportIdentityNumber, String hourInit, String dateInit, String hourFinish, String dateFinish) {
         this.technicianIdentity = technicianIdentity;
-        this.reportdentityNumber = reportdentityNumber;
+        this.reportIdentityNumber = reportIdentityNumber;
         this.hourInit = hourInit;
         this.dateInit = dateInit;
         this.hourFinish = hourFinish;

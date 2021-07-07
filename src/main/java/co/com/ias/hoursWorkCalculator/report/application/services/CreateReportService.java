@@ -1,6 +1,6 @@
 package co.com.ias.hoursWorkCalculator.report.application.services;
 
-import co.com.ias.hoursWorkCalculator.report.application.domain.ReportdentityNumber;
+import co.com.ias.hoursWorkCalculator.report.application.domain.ReportIdentityNumber;
 import co.com.ias.hoursWorkCalculator.report.application.domain.ServiceReport;
 import co.com.ias.hoursWorkCalculator.report.application.errors.InputDataError;
 import co.com.ias.hoursWorkCalculator.report.application.errors.ReportAlreadyExistsError;
@@ -22,7 +22,7 @@ public class CreateReportService implements CreateReportUseCase {
     public CreateReportResponse execute(CreateReportRequest request) {
         Validation<InputDataError, ServiceReport> validation = ServiceReport.parseReport(
                 request.getTechnicianIdentity(),
-                request.getReportdentityNumber(),
+                request.getReportIdentityNumber(),
                 request.getHourInit(),
                 request.getDateInit(),
                 request.getHourFinish(),
@@ -36,13 +36,13 @@ public class CreateReportService implements CreateReportUseCase {
 
         final ServiceReport serviceReport = validation.get();
 
-        ReportdentityNumber reportdentityNumber = serviceReport.getReportdentityNumber();
-        Optional<ServiceReport> studentById = repository.getReportById(reportdentityNumber);
+        ReportIdentityNumber reportIdentityNumber = serviceReport.getReportIdentityNumber();
+        Optional<ServiceReport> reportById = repository.getReportById(reportIdentityNumber);
 
-        if (studentById.isPresent()) {
-            throw new ReportAlreadyExistsError(reportdentityNumber);
+        if (reportById.isPresent()) {
+            throw new ReportAlreadyExistsError(reportIdentityNumber);
         }
-
+        System.out.println(serviceReport);
         repository.storeReport(serviceReport);
 
         return new CreateReportResponse(serviceReport);

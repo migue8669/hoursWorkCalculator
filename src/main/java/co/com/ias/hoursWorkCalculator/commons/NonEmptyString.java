@@ -9,7 +9,7 @@ public class NonEmptyString {
     private static final String NULL_MESSAGE = "NonEmptyString can not be null";
     private static final String EMPTY_MESSAGE = "NonEmptyString can not be empty";
 
-    private NonEmptyString(String value) {
+    public NonEmptyString(String value) {
         // validation logic
         Validate.notNull(value, NULL_MESSAGE);
         Validate.isTrue(StringUtils.isNotBlank(value), EMPTY_MESSAGE);

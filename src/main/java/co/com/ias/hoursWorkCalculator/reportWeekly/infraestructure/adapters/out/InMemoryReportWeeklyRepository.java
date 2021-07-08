@@ -1,10 +1,8 @@
-package co.com.ias.hoursWorkCalculator.report.infraestructure.adapters.out;
+package co.com.ias.hoursWorkCalculator.reportWeekly.infraestructure.adapters.out;
 
-import co.com.ias.hoursWorkCalculator.report.application.domain.ReportIdentityNumber;
-import co.com.ias.hoursWorkCalculator.report.application.domain.ReportWeekly;
-import co.com.ias.hoursWorkCalculator.report.application.domain.ServiceReport;
-import co.com.ias.hoursWorkCalculator.report.application.domain.TechnicianIdentityNumber;
-import co.com.ias.hoursWorkCalculator.report.application.ports.out.ReportWeeklyRepository;
+import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.ReportWeekly;
+import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.TechnicianIdentityNumber;
+import co.com.ias.hoursWorkCalculator.reportWeekly.application.ports.out.ReportWeeklyRepository;
 
 import java.util.Collection;
 import java.util.HashMap;

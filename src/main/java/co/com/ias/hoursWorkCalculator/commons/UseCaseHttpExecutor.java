@@ -1,4 +1,4 @@
-package co.com.ias.hoursWorkCalculator.report.infraestructure.commons;
+package co.com.ias.hoursWorkCalculator.commons;
 
 import co.com.ias.hoursWorkCalculator.commons.errors.ApplicationError;
 import co.com.ias.hoursWorkCalculator.commons.operation.ApplicationRequest;

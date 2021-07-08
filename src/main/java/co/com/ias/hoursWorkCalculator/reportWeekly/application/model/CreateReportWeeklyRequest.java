@@ -1,8 +1,6 @@
-package co.com.ias.hoursWorkCalculator.report.application.model;
+package co.com.ias.hoursWorkCalculator.reportWeekly.application.model;
 
 import co.com.ias.hoursWorkCalculator.commons.operation.ApplicationRequest;
-import co.com.ias.hoursWorkCalculator.report.application.errors.InputDataError;
-import io.vavr.control.Validation;
 
 import java.util.Objects;
 

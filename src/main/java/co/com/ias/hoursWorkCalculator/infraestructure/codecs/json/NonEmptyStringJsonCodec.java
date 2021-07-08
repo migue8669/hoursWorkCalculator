@@ -1,8 +1,8 @@
-package co.com.ias.hoursWorkCalculator.report.infraestructure.codecs.json;
+package co.com.ias.hoursWorkCalculator.infraestructure.codecs.json;
 
 import co.com.ias.hoursWorkCalculator.commons.NonEmptyString;
+
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -29,9 +29,7 @@ public class NonEmptyStringJsonCodec {
         @Override
         public NonEmptyString deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
             final String valueAsString = jsonParser.getValueAsString();
-            return NonEmptyString.parse(valueAsString, jsonParser.currentName())
-                    .mapError(error -> new JsonParseException(jsonParser, error.getErrorMessage()))
-                    .get();
+            return new NonEmptyString(valueAsString);
         }
     }
 

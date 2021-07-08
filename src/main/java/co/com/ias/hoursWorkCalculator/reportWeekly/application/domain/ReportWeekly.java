@@ -1,9 +1,9 @@
-package co.com.ias.hoursWorkCalculator.report.application.domain;
+package co.com.ias.hoursWorkCalculator.reportWeekly.application.domain;
 
 import co.com.ias.hoursWorkCalculator.commons.InputAttributeError;
 import co.com.ias.hoursWorkCalculator.commons.NonEmptyString;
 import co.com.ias.hoursWorkCalculator.commons.Validate;
-import co.com.ias.hoursWorkCalculator.report.application.errors.InputDataError;
+import co.com.ias.hoursWorkCalculator.reportWeekly.application.errors.InputDataError;
 import io.vavr.control.Validation;
 
 import java.util.List;
@@ -73,7 +73,7 @@ public class ReportWeekly {
         this.extraSundayHour = extraSundayHour;
     }
 
-    public static Validation<InputDataError,ReportWeekly> WeeklyReport(
+    public static Validation<InputDataError, ReportWeekly> WeeklyReport(
             String technicianIdentity,
             String reportIdentityNumber,
             String hour,

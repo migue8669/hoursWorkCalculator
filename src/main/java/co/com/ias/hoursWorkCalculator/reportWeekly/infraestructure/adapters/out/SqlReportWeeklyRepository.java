@@ -1,9 +1,8 @@
-package co.com.ias.hoursWorkCalculator.report.infraestructure.adapters.out;
+package co.com.ias.hoursWorkCalculator.reportWeekly.infraestructure.adapters.out;
 
-import co.com.ias.hoursWorkCalculator.report.application.domain.ReportWeekly;
-import co.com.ias.hoursWorkCalculator.report.application.domain.ReportIdentityNumber;
-import co.com.ias.hoursWorkCalculator.report.application.domain.TechnicianIdentityNumber;
-import co.com.ias.hoursWorkCalculator.report.application.ports.out.ReportWeeklyRepository;
+import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.TechnicianIdentityNumber;
+import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.ReportWeekly;
+import co.com.ias.hoursWorkCalculator.reportWeekly.application.ports.out.ReportWeeklyRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -15,8 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Optional;
-@Repository
 
+@Repository
 public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
         private final JdbcTemplate jdbcTemplate;
 
@@ -26,8 +25,8 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
 
         private final RowMapper<ReportWeekly> reportRowMapper = (rs, rowNum) -> fromResultSet(rs);
 
-        @Override
-        public Optional<ReportWeekly> getReportWeeklyById(TechnicianIdentityNumber technicianIdentityNumber) {
+    @Override
+    public Optional<ReportWeekly> getReportWeeklyById(TechnicianIdentityNumber technicianIdentityNumber) {
             final String sql = "SELECT * FROM REPORT_WEEKLY WHERE ID_NUMBER_REPORT = ?";
             PreparedStatementSetter preparedStatementSetter = ps -> {
                 ps.setString(1, technicianIdentityNumber.getValue());

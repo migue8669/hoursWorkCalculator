@@ -16,6 +16,7 @@ public class ReportsApplicationConfiguration {
             ReportRepository reportRepository
     ) {
         return new CreateReportService(reportRepository);
+
     }
 
 

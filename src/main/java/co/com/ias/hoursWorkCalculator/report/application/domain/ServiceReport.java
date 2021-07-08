@@ -15,20 +15,29 @@ public class ServiceReport {
     private final NonEmptyString hourFinish;
     private final NonEmptyString dateFinish;
 
-    public ServiceReport(ReportIdentityNumber reportIdentityNumber,TechnicianIdentityNumber technicianIdentity,  NonEmptyString hourInit, NonEmptyString dateInit, NonEmptyString hourFinish, NonEmptyString dateFinish) {
+
+
+
+
+    public ServiceReport(ReportIdentityNumber reportIdentityNumber, TechnicianIdentityNumber technicianIdentity, NonEmptyString hourInit, NonEmptyString dateInit, NonEmptyString hourFinish, NonEmptyString dateFinish, NonEmptyString hour, NonEmptyString nightHour, NonEmptyString sundayHour, NonEmptyString extraHour, NonEmptyString extraNightHour, NonEmptyString extraSundayHour) {
+
         Validate.notNull(reportIdentityNumber, "report identity  can not be null");
 
         Validate.notNull(technicianIdentity, "Technician identity  can not be null");
-        Validate.notNull(hourInit, "hourInit  can not be null");
-        Validate.notNull(dateInit, "dateInit can not be null");
-        Validate.notNull(hourFinish, "hourFinish can not be null");
-        Validate.notNull(dateFinish, "dateFinish can not be null");
+        Validate.notNull(hourInit, "hour Init  can not be null");
+        Validate.notNull(dateInit, "date Init can not be null");
+        Validate.notNull(hourFinish, "hour Finish can not be null");
+        Validate.notNull(dateFinish, "date Finish can not be null");
+
+
+
         this.reportIdentityNumber = reportIdentityNumber;
         this.technicianIdentity = technicianIdentity;
         this.hourInit = hourInit;
         this.hourFinish = hourFinish;
         this.dateInit = dateInit;
         this.dateFinish = dateFinish;
+
     }
 
     public TechnicianIdentityNumber getTechnicianIdentity() {
@@ -62,6 +71,7 @@ public class ServiceReport {
             String dateInit,
             String hourFinish,
             String dateFinish
+
             ){
         var reportIdentityNumberValidation = ReportIdentityNumber.parse(
                 reportIdentityNumber,
@@ -93,16 +103,18 @@ public class ServiceReport {
                 dateFinish,
                 "dateFinish"
         );
+
+
         return Validation.combine(
                 reportIdentityNumberValidation,
                 technicianIdentityValidation,
                 hourInitValidation,
                 dateInitValidation,
                 hourFinishValidation,
-                dateFinishValidation)
+                dateFinishValidation
+           )
                 .ap(ServiceReport::new).mapError(inputAttributeErrors ->
                 {
-                    System.out.println();
                     String message="There was an error with the input report service data.";
                     final List<InputAttributeError> errors = inputAttributeErrors.asJava();
                     return new InputDataError(message,errors);

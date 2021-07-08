@@ -28,6 +28,7 @@ public class CreateReportService implements CreateReportUseCase {
                 request.getHourFinish(),
                 request.getDateFinish()
 
+
                 );
 
         if(validation.isInvalid()) {
@@ -42,7 +43,6 @@ public class CreateReportService implements CreateReportUseCase {
         if (reportById.isPresent()) {
             throw new ReportAlreadyExistsError(reportIdentityNumber);
         }
-        System.out.println(serviceReport);
         repository.storeReport(serviceReport);
 
         return new CreateReportResponse(serviceReport);

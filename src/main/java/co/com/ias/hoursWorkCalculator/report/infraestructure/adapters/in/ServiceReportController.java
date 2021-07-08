@@ -15,11 +15,13 @@ public class ServiceReportController {
     private final UseCaseHttpExecutor useCaseHttpExecutor;
     private final CreateReportUseCase createReportUseCase;
     private final ListReportsUseCase listReportsUseCase;
+
     @Autowired
-    public ServiceReportController( UseCaseHttpExecutor useCaseHttpExecutor, CreateReportUseCase createReportUseCase, ListReportsUseCase listReportsUseCase) {
+    public ServiceReportController( UseCaseHttpExecutor useCaseHttpExecutor, CreateReportUseCase createReportUseCase, ListReportsUseCase listReportsUseCase ) {
         this.useCaseHttpExecutor = useCaseHttpExecutor;
         this.listReportsUseCase = listReportsUseCase;
         this.createReportUseCase=createReportUseCase;
+
     }
 
     @GetMapping
@@ -45,5 +47,10 @@ public class ServiceReportController {
                 request
         );
     }
+
+
+
+
+
 
 }

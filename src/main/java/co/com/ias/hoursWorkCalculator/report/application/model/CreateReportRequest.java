@@ -12,6 +12,38 @@ public class CreateReportRequest implements ApplicationRequest {
     private String  hourFinish;
     private String  dateFinish;
 
+    private String hour;
+
+    private String nightHour;
+    private String sundayHour;
+    private String extraHour;
+    private String extraNightHour;
+    private String extraSundayHour;
+
+    public String getHour() {
+        return hour;
+    }
+
+    public String getNightHour() {
+        return nightHour;
+    }
+
+    public String getSundayHour() {
+        return sundayHour;
+    }
+
+    public String getExtraHour() {
+        return extraHour;
+    }
+
+    public String getExtraNightHour() {
+        return extraNightHour;
+    }
+
+    public String getExtraSundayHour() {
+        return extraSundayHour;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -82,6 +114,8 @@ public class CreateReportRequest implements ApplicationRequest {
                 ", dateInit='" + dateInit + '\'' +
                 ", hourFinish='" + hourFinish + '\'' +
                 ", dateFinish='" + dateFinish + '\'' +
+
+
                 '}';
     }
 
@@ -92,5 +126,6 @@ public class CreateReportRequest implements ApplicationRequest {
         this.dateInit = dateInit;
         this.hourFinish = hourFinish;
         this.dateFinish = dateFinish;
+
     }
 }

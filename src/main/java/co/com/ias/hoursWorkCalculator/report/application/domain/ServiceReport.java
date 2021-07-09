@@ -19,7 +19,7 @@ public class ServiceReport {
 
 
 
-    public ServiceReport(ReportIdentityNumber reportIdentityNumber, TechnicianIdentityNumber technicianIdentity, NonEmptyString hourInit, NonEmptyString dateInit, NonEmptyString hourFinish, NonEmptyString dateFinish, NonEmptyString hour, NonEmptyString nightHour, NonEmptyString sundayHour, NonEmptyString extraHour, NonEmptyString extraNightHour, NonEmptyString extraSundayHour) {
+    public ServiceReport(ReportIdentityNumber reportIdentityNumber, TechnicianIdentityNumber technicianIdentity, NonEmptyString hourInit, NonEmptyString dateInit, NonEmptyString hourFinish, NonEmptyString dateFinish) {
 
         Validate.notNull(reportIdentityNumber, "report identity  can not be null");
 

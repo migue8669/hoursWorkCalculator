@@ -4,13 +4,8 @@ CREATE TABLE REPORT (
     DATE_INIT varchar not null,
     DATE_FINISH varchar not null,
     HOUR_INIT varchar not null,
-    HOUR_FINISH varchar not null,
-       NORMAL_HOUR varchar not null,
-       NOCTURNAL_HOUR varchar not null,
-       SUNDAY_HOUR varchar not null,
-       EXTRA_NORMAL_HOUR varchar not null,
-       EXTRA_NOCTURNAL_HOUR varchar not null,
-       EXTRA_SUNDAY_HOUR varchar not null
+    HOUR_FINISH varchar not null
+
 
 );
 

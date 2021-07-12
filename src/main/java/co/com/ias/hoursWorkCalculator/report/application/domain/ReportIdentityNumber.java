@@ -16,7 +16,7 @@ public class ReportIdentityNumber {
     private static final String EMPTY_MESSAGE = "Service Identity Number can not be empty";
     private static final String INVALID_PATTERN_MESSAGE = "Invalid identification number";
 
-    private ReportIdentityNumber(String value) {
+    public ReportIdentityNumber(String value) {
         Validate.notNull(value, NULL_MESSAGE);
         Validate.isTrue(StringUtils.isNotBlank(value), EMPTY_MESSAGE);
         Validate.isTrue(pattern.matcher(value).matches(), INVALID_PATTERN_MESSAGE);

@@ -21,6 +21,7 @@ public class CreateReportWeeklyService implements CreateReportWeeklyUseCase {
 
     @Override
     public CreateReportWeeklyResponse execute(CreateReportWeeklyRequest request) {
+        System.out.println("adentro execute");
         Validation<InputDataError, ReportWeekly> validation = ReportWeekly.WeeklyReport(
                 request.getTechnicianIdentity(),
 

@@ -75,8 +75,8 @@ public class ServiceReportController {
         Integer limitInt = Integer.parseInt(limit, 10);
         Integer skipInt = Integer.parseInt(skip, 10);
         return useCaseHttpExecutor.executeUseCase(
-                listReportWeeklyUseCase,
-                new ListWeeklyReportRequest(limitInt, skipInt)
+                listReportsUseCase,
+                new ListReportRequest(limitInt, skipInt)
         );
     }
 

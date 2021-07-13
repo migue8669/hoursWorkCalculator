@@ -11,37 +11,14 @@ public class CreateReportRequest implements ApplicationRequest {
     private String  dateInit;
     private String  hourFinish;
     private String  dateFinish;
+    private String  numWeek;
 
-    private String hour;
-
-    private String nightHour;
-    private String sundayHour;
-    private String extraHour;
-    private String extraNightHour;
-    private String extraSundayHour;
-
-    public String getHour() {
-        return hour;
+    public String getNumWeek() {
+        return numWeek;
     }
 
-    public String getNightHour() {
-        return nightHour;
-    }
-
-    public String getSundayHour() {
-        return sundayHour;
-    }
-
-    public String getExtraHour() {
-        return extraHour;
-    }
-
-    public String getExtraNightHour() {
-        return extraNightHour;
-    }
-
-    public String getExtraSundayHour() {
-        return extraSundayHour;
+    public void setNumWeek(String numWeek) {
+        this.numWeek = numWeek;
     }
 
     @Override
@@ -114,18 +91,22 @@ public class CreateReportRequest implements ApplicationRequest {
                 ", dateInit='" + dateInit + '\'' +
                 ", hourFinish='" + hourFinish + '\'' +
                 ", dateFinish='" + dateFinish + '\'' +
+                ", numWeek='" + numWeek + '\'' +
+
 
 
                 '}';
     }
 
-    public CreateReportRequest(String technicianIdentity, String reportIdentityNumber, String hourInit, String dateInit, String hourFinish, String dateFinish) {
+    public CreateReportRequest(String technicianIdentity, String reportIdentityNumber, String hourInit, String dateInit, String hourFinish, String dateFinish, String numWeek) {
         this.technicianIdentity = technicianIdentity;
         this.reportIdentityNumber = reportIdentityNumber;
         this.hourInit = hourInit;
         this.dateInit = dateInit;
         this.hourFinish = hourFinish;
         this.dateFinish = dateFinish;
+        this.numWeek = numWeek;
+
 
     }
 }

@@ -14,12 +14,10 @@ public class ServiceReport {
     private final NonEmptyString dateInit;
     private final NonEmptyString hourFinish;
     private final NonEmptyString dateFinish;
+    private final NonEmptyString numWeek;
 
 
-
-
-
-    public ServiceReport(ReportIdentityNumber reportIdentityNumber, TechnicianIdentityNumber technicianIdentity, NonEmptyString hourInit, NonEmptyString dateInit, NonEmptyString hourFinish, NonEmptyString dateFinish) {
+    public ServiceReport(ReportIdentityNumber reportIdentityNumber, TechnicianIdentityNumber technicianIdentity, NonEmptyString hourInit, NonEmptyString dateInit, NonEmptyString hourFinish, NonEmptyString dateFinish, NonEmptyString numWeek, NonEmptyString week) {
 
         Validate.notNull(reportIdentityNumber, "report identity  can not be null");
 
@@ -28,7 +26,7 @@ public class ServiceReport {
         Validate.notNull(dateInit, "date Init can not be null");
         Validate.notNull(hourFinish, "hour Finish can not be null");
         Validate.notNull(dateFinish, "date Finish can not be null");
-
+        Validate.notNull(numWeek, "num week can not be null");
 
 
         this.reportIdentityNumber = reportIdentityNumber;
@@ -37,7 +35,11 @@ public class ServiceReport {
         this.hourFinish = hourFinish;
         this.dateInit = dateInit;
         this.dateFinish = dateFinish;
+        this.numWeek=numWeek;
+    }
 
+    public NonEmptyString getNumWeek() {
+        return numWeek;
     }
 
     public TechnicianIdentityNumber getTechnicianIdentity() {
@@ -70,7 +72,8 @@ public class ServiceReport {
             String hourInit,
             String dateInit,
             String hourFinish,
-            String dateFinish
+            String dateFinish,
+            String numWeek
 
             ){
         var reportIdentityNumberValidation = ReportIdentityNumber.parse(
@@ -103,7 +106,10 @@ public class ServiceReport {
                 dateFinish,
                 "dateFinish"
         );
-
+        var numWeekValidation = NonEmptyString.parse(
+                numWeek,
+                "numWeek"
+        );
 
         return Validation.combine(
                 reportIdentityNumberValidation,
@@ -111,9 +117,10 @@ public class ServiceReport {
                 hourInitValidation,
                 dateInitValidation,
                 hourFinishValidation,
-                dateFinishValidation
+                dateFinishValidation,
+                numWeekValidation
            )
-                .ap(ServiceReport::new).mapError(inputAttributeErrors ->
+                .ap((reportIdentityNumber1, technicianIdentity1, hourInit1, dateInit1, hourFinish1, dateFinish1, numWeek1) -> new ServiceReport(reportIdentityNumber1, technicianIdentity1, hourInit1, dateInit1, hourFinish1, dateFinish1, numWeek1, new NonEmptyString("numWeek"))).mapError(inputAttributeErrors ->
                 {
                     String message="There was an error with the input report service data.";
                     final List<InputAttributeError> errors = inputAttributeErrors.asJava();

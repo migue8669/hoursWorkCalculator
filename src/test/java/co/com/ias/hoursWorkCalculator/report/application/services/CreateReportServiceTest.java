@@ -32,7 +32,8 @@ public class CreateReportServiceTest {
                 "hourInit",
                 "hourFinish",
                 "dateInit",
-                "dateFinish");
+                "dateFinish",
+                "numWeek");
         // act
         CreateReportResponse response = createStudentService.execute(request);
         // assert
@@ -47,17 +48,19 @@ public class CreateReportServiceTest {
         );
     }
     @Test
-    void ifStudentExistsItThrowsAnException() {
+    void ifReportExistsItThrowsAnException() {
         ServiceReport serviceReport = new ServiceReport(
                 new ReportIdentityNumber("12345678"),
                 new TechnicianIdentityNumber("12345678"),
                 new NonEmptyString("hourInit"),
                 new NonEmptyString("dateInit"),
                 new NonEmptyString("hourFinish"),
-                new NonEmptyString("dateFinish")
+                new NonEmptyString("dateFinish"),
+                new NonEmptyString("dateFinish"),
+                new NonEmptyString("numWeek")
 
 
-        );
+                );
         ReportRepository repository = Mockito.mock(ReportRepository.class);
         Mockito.when(repository.getReportById(ArgumentMatchers.any(ReportIdentityNumber.class)))
                 .thenReturn(Optional.of(serviceReport));
@@ -68,7 +71,8 @@ public class CreateReportServiceTest {
                 serviceReport.getHourInit().getValue(),
                 serviceReport.getDateInit().getValue(),
                 serviceReport.getHourFinish().getValue(),
-                serviceReport.getDateFinish().getValue()
+                serviceReport.getDateFinish().getValue(),
+                serviceReport.getNumWeek().getValue()
 
 
                 );

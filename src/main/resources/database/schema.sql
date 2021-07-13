@@ -4,7 +4,8 @@ CREATE TABLE REPORT (
     DATE_INIT varchar not null,
     DATE_FINISH varchar not null,
     HOUR_INIT varchar not null,
-    HOUR_FINISH varchar not null
+    HOUR_FINISH varchar not null,
+    NUM_WEEK varchar not null
 
 
 );

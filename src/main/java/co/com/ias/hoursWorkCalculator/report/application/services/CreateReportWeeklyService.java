@@ -1,22 +1,29 @@
 package co.com.ias.hoursWorkCalculator.report.application.services;
 
+import co.com.ias.hoursWorkCalculator.report.application.domain.ReportIdentityNumber;
 import co.com.ias.hoursWorkCalculator.report.application.domain.ReportWeekly;
+import co.com.ias.hoursWorkCalculator.report.application.domain.ServiceReport;
 import co.com.ias.hoursWorkCalculator.report.application.domain.TechnicianIdentityNumber;
 import co.com.ias.hoursWorkCalculator.report.application.errors.InputDataError;
 import co.com.ias.hoursWorkCalculator.report.application.errors.ReportWeeklyAlreadyExistError;
 import co.com.ias.hoursWorkCalculator.report.application.model.CreateReportWeeklyRequest;
 import co.com.ias.hoursWorkCalculator.report.application.model.CreateReportWeeklyResponse;
 import co.com.ias.hoursWorkCalculator.report.application.ports.in.CreateReportWeeklyUseCase;
+import co.com.ias.hoursWorkCalculator.report.application.ports.out.ReportRepository;
 import co.com.ias.hoursWorkCalculator.report.application.ports.out.ReportWeeklyRepository;
 import io.vavr.control.Validation;
 
+import java.util.Collection;
 import java.util.Optional;
 
 public class CreateReportWeeklyService implements CreateReportWeeklyUseCase {
     private final ReportWeeklyRepository reportWeeklyRepository;
+    private final ReportRepository reportRepository;
 
-    public CreateReportWeeklyService(ReportWeeklyRepository reportWeeklyRepository) {
+
+    public CreateReportWeeklyService(ReportWeeklyRepository reportWeeklyRepository, ReportRepository reportRepository) {
         this.reportWeeklyRepository = reportWeeklyRepository;
+        this.reportRepository = reportRepository;
     }
 
     @Override
@@ -34,8 +41,7 @@ public class CreateReportWeeklyService implements CreateReportWeeklyUseCase {
                 request.getExtraSundayHour()
 
         );
-        System.out.println(request);
-        System.out.println(validation);
+
         if(validation.isInvalid()) {
             throw validation.getError();
         }
@@ -52,4 +58,6 @@ public class CreateReportWeeklyService implements CreateReportWeeklyUseCase {
         reportWeeklyRepository.storeReportWeekly(reportWeekly);
 
         return new CreateReportWeeklyResponse(reportWeekly);
-    }    }
+    }
+
+}

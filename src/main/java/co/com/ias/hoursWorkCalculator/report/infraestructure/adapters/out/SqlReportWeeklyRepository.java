@@ -1,5 +1,6 @@
 package co.com.ias.hoursWorkCalculator.report.infraestructure.adapters.out;
 
+import co.com.ias.hoursWorkCalculator.report.application.domain.ServiceReport;
 import co.com.ias.hoursWorkCalculator.report.application.domain.TechnicianIdentityNumber;
 import co.com.ias.hoursWorkCalculator.report.application.domain.ReportWeekly;
 import co.com.ias.hoursWorkCalculator.report.application.ports.out.ReportWeeklyRepository;
@@ -15,9 +16,6 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Optional;
 
-
-import java.util.Optional;
-
 @Repository
 public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
     private final JdbcTemplate jdbcTemplate;
@@ -27,6 +25,39 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
     }
 
     private final RowMapper<ReportWeekly> reportRowMapper = (rs, rowNum) -> fromResultSet(rs);
+    private final RowMapper<ServiceReport> calculateRowMapper = (rs, rowNum) -> fromResultsCalculateSet(rs);
+
+    private ServiceReport fromResultsCalculateSet(ResultSet rs)  throws SQLException {
+        return ServiceReport.parseReport(
+                rs.getString("ID_NUMBER_REPORT"),
+                rs.getString("ID_NUMBER_TECHNICIAN"),
+                rs.getString("DATE_INIT"),
+                rs.getString("DATE_FINISH"),
+                rs.getString("HOUR_INIT"),
+                rs.getString("HOUR_FINISH"),
+                rs.getString("NUM_WEEK")
+
+
+
+        ).get();
+    }
+
+    public Optional<ReportWeekly> getReportById(TechnicianIdentityNumber technicianIdentityNumber) {
+        final String sql = "SELECT * FROM REPORT WHERE ID_NUMBER_TECHNICIAN = ?";
+        PreparedStatementSetter preparedStatementSetter = ps -> {
+            ps.setString(1, technicianIdentityNumber.getValue());
+        };
+        final ResultSetExtractor<Optional<ReportWeekly>> resultSetExtractor = rs -> {
+            if (rs.next()) {
+                final ReportWeekly reportWeekly = fromResultSet(rs);
+                return Optional.of(reportWeekly);
+            } else {
+                return Optional.empty();
+            }
+        };
+
+        return jdbcTemplate.query(sql, preparedStatementSetter, resultSetExtractor);
+    }
 
     @Override
     public Optional<ReportWeekly> getReportWeeklyById(TechnicianIdentityNumber technicianIdentityNumber) {
@@ -97,5 +128,6 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
 
         ).get();
     }
+
 
 }

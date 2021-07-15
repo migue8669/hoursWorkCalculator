@@ -24,7 +24,7 @@ public class InMemoryReportRepository implements ReportRepository {
     }
 
     @Override
-    public Collection<ServiceReport> listReports(int limit, int skip) {
+    public Collection<ServiceReport> listReports() {
         return database.values();
     }
 

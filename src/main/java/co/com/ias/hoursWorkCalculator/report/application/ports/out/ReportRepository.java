@@ -11,7 +11,7 @@ public interface ReportRepository {
 
     void storeReport(ServiceReport report);
 
-    Collection<ServiceReport> listReports(int limit, int skip);
+    Collection<ServiceReport> listReports();
 
     Integer countReports();
 }

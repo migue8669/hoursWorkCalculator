@@ -12,6 +12,16 @@ public class CreateReportRequest implements ApplicationRequest {
     private String  hourFinish;
     private String  dateFinish;
 
+    public String getNumWeek() {
+        return numWeek;
+    }
+
+    public void setNumWeek(String numWeek) {
+        this.numWeek = numWeek;
+    }
+
+    private String  numWeek;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -82,15 +92,18 @@ public class CreateReportRequest implements ApplicationRequest {
                 ", dateInit='" + dateInit + '\'' +
                 ", hourFinish='" + hourFinish + '\'' +
                 ", dateFinish='" + dateFinish + '\'' +
+                ", numWeek='" + numWeek + '\'' +
+
                 '}';
     }
 
-    public CreateReportRequest(String technicianIdentity, String reportIdentityNumber, String hourInit, String dateInit, String hourFinish, String dateFinish) {
+    public CreateReportRequest(String technicianIdentity, String reportIdentityNumber, String hourInit, String dateInit, String hourFinish, String dateFinish, String numWeek) {
         this.technicianIdentity = technicianIdentity;
         this.reportIdentityNumber = reportIdentityNumber;
         this.hourInit = hourInit;
         this.dateInit = dateInit;
         this.hourFinish = hourFinish;
         this.dateFinish = dateFinish;
+        this.numWeek = numWeek;
     }
 }

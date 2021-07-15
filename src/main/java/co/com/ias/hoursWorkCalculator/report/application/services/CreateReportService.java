@@ -26,9 +26,10 @@ public class CreateReportService implements CreateReportUseCase {
                 request.getHourInit(),
                 request.getDateInit(),
                 request.getHourFinish(),
-                request.getDateFinish()
+                request.getDateFinish(),
+        request.getNumWeek());
 
-                );
+
 
         if(validation.isInvalid()) {
             throw validation.getError();
@@ -38,11 +39,9 @@ public class CreateReportService implements CreateReportUseCase {
 
         ReportIdentityNumber reportIdentityNumber = serviceReport.getReportIdentityNumber();
         Optional<ServiceReport> reportById = repository.getReportById(reportIdentityNumber);
-
         if (reportById.isPresent()) {
             throw new ReportAlreadyExistsError(reportIdentityNumber);
         }
-        System.out.println(serviceReport);
         repository.storeReport(serviceReport);
 
         return new CreateReportResponse(serviceReport);

@@ -1,6 +1,8 @@
 package co.com.ias.hoursWorkCalculator.reportWeekly.infraestructure.adapters.in;
 
 
+import co.com.ias.hoursWorkCalculator.report.application.model.ListReportRequest;
+import co.com.ias.hoursWorkCalculator.report.application.ports.in.ListReportsUseCase;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.model.CreateReportWeeklyRequest;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.model.ListWeeklyReportRequest;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.ports.in.CreateReportWeeklyUseCase;
@@ -19,13 +21,15 @@ public class ReportWeeklyController {
     private final UseCaseHttpExecutor useCaseHttpExecutor;
     private final CreateReportWeeklyUseCase createReportWeeklyUseCase;
     private final ListReportWeeklyUseCase listReportWeeklyUseCase;
+    private final ListReportsUseCase listReportUseCase;
 
     @Autowired
-    public ReportWeeklyController(UseCaseHttpExecutor useCaseHttpExecutor,   CreateReportWeeklyUseCase createREportWeeklyUseCase, ListReportWeeklyUseCase listReportWeeklyUseCase ) {
+    public ReportWeeklyController(UseCaseHttpExecutor useCaseHttpExecutor, CreateReportWeeklyUseCase createREportWeeklyUseCase, ListReportWeeklyUseCase listReportWeeklyUseCase, ListReportsUseCase listReportUseCase) {
         this.useCaseHttpExecutor = useCaseHttpExecutor;
         this.createReportWeeklyUseCase = createREportWeeklyUseCase;
         this.listReportWeeklyUseCase = listReportWeeklyUseCase;
 
+        this.listReportUseCase = listReportUseCase;
     }
 
     @GetMapping
@@ -51,4 +55,7 @@ public class ReportWeeklyController {
                 request
         );
     }
-}
+
+
+    }
+

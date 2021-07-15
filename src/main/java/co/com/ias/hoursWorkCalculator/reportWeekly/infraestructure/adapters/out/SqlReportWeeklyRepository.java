@@ -1,8 +1,11 @@
 package co.com.ias.hoursWorkCalculator.reportWeekly.infraestructure.adapters.out;
 
+import co.com.ias.hoursWorkCalculator.report.application.domain.ServiceReport;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.TechnicianIdentityNumber;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.ReportWeekly;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.ports.out.ReportWeeklyRepository;
+import io.vavr.collection.Array;
+import org.mockito.internal.matchers.Any;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -12,18 +15,20 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.Optional;
+import java.util.*;
 
 @Repository
 public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
-        private final JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
-        public SqlReportWeeklyRepository(JdbcTemplate jdbcTemplate) {
+
+    public SqlReportWeeklyRepository(JdbcTemplate jdbcTemplate) {
             this.jdbcTemplate = jdbcTemplate;
         }
 
         private final RowMapper<ReportWeekly> reportRowMapper = (rs, rowNum) -> fromResultSet(rs);
+    private final RowMapper<ServiceReport> reportServiceRowMapper = (rs, rowNum) -> fromResultSetRS(rs);
+
 
     @Override
     public Optional<ReportWeekly> getReportWeeklyById(TechnicianIdentityNumber technicianIdentityNumber) {
@@ -43,6 +48,25 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
             return jdbcTemplate.query(sql, preparedStatementSetter, resultSetExtractor);
         }
 
+    @Override
+    public Optional<ServiceReport> getReportById(TechnicianIdentityNumber technicianIdentityNumber) {
+        System.out.println("getReportByIdSqlReportWeeklyRep");
+        final String sql = "SELECT * FROM REPORT WHERE ID_NUMBER_TECHNICIAN = ?";
+        PreparedStatementSetter preparedStatementSetter = ps -> {
+            ps.setString(1, technicianIdentityNumber.getValue());
+        };
+        final ResultSetExtractor<Optional<ServiceReport>> resultSetExtractor = rs -> {
+            System.out.println("rs"+rs);
+            if (rs.next()) {
+                final ServiceReport serviceReport = fromResultSetRS(rs);
+                System.out.println("f"+serviceReport);
+                return Optional.of(serviceReport);
+            } else {
+                return Optional.empty();
+            }
+        };
+
+        return jdbcTemplate.query(sql, preparedStatementSetter, resultSetExtractor);    }
 
 
     @Override
@@ -70,7 +94,13 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
             final String sql = "SELECT * FROM REPORT_WEEKLY LIMIT ? OFFSET ?";
             return jdbcTemplate.query(sql, reportRowMapper, limit, skip);
         }
+    @Override
+    public Collection<ServiceReport> listReports() {
+        final String sql = "SELECT * FROM REPORT";
+        System.out.println("ListReports"+jdbcTemplate.query(sql, reportServiceRowMapper));
+        return jdbcTemplate.query(sql, reportServiceRowMapper);
 
+    }
         @Override
         public Integer countReportsWeekly() {
             String sql = "select count(*) from REPORT_WEEKLY";
@@ -79,6 +109,7 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
 
 
         private static ReportWeekly fromResultSet(ResultSet rs) throws SQLException {
+
             return ReportWeekly.WeeklyReport(
                     rs.getString("ID_NUMBER_TECHNICIAN"),
 
@@ -94,6 +125,35 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
 
             ).get();
         }
+    private static ServiceReport fromResultSetRS(ResultSet rs) throws SQLException {
+        ArrayList<Object> dates = new ArrayList<Object>();
 
+
+            Object dato = new Object[7];
+            for (int i = 1; i <= 7; i++) {
+                dato = rs.getArray(i);
+                dates.add(dato);
+            }
+
+
+        System.out.println("dates" +dates);
+
+    return ServiceReport.parseReport(
+                rs.getString("ID_NUMBER_REPORT"),
+
+                rs.getString("ID_NUMBER_TECHNICIAN"),
+
+                rs.getString("DATE_INIT"),
+                rs.getString("DATE_FINISH"),
+                rs.getString("HOUR_INIT"),
+                rs.getString("HOUR_FINISH"),
+                rs.getString("NUM_WEEK")
+
+
+
+
+
+        ).get();
+    }
 }
 

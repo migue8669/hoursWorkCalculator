@@ -48,7 +48,7 @@ public class SqlReportRepository implements ReportRepository {
     public void storeReport(ServiceReport serviceReport) {
         jdbcTemplate.update(connection -> {
             final PreparedStatement preparedStatement = connection
-                    .prepareStatement("INSERT INTO REPORT (ID_NUMBER_REPORT, ID_NUMBER_TECHNICIAN, DATE_INIT, DATE_FINISH,HOUR_INIT,HOUR_FINISH) VALUES (?, ?, ?, ?,?,?)");
+                    .prepareStatement("INSERT INTO REPORT (ID_NUMBER_REPORT, ID_NUMBER_TECHNICIAN, DATE_INIT, DATE_FINISH,HOUR_INIT,HOUR_FINISH, NUM_WEEK) VALUES (?, ?, ?, ?, ?,?,?)");
 
             preparedStatement.setString(1, serviceReport.getReportIdentityNumber().getValue());
             preparedStatement.setString(2, serviceReport.getTechnicianIdentity().getValue());
@@ -56,6 +56,7 @@ public class SqlReportRepository implements ReportRepository {
             preparedStatement.setString(4, serviceReport.getDateInit().getValue());
             preparedStatement.setString(5, serviceReport.getHourFinish().getValue());
             preparedStatement.setString(6, serviceReport.getDateFinish().getValue());
+            preparedStatement.setString(7, serviceReport.getNumWeek().getValue());
 
 
             return preparedStatement;
@@ -63,10 +64,12 @@ public class SqlReportRepository implements ReportRepository {
     }
 
     @Override
-    public Collection<ServiceReport> listReports(int limit, int skip) {
-        final String sql = "SELECT * FROM REPORT LIMIT ? OFFSET ?";
-        return jdbcTemplate.query(sql, reportRowMapper, limit, skip);
+    public Collection<ServiceReport> listReports() {
+        final String sql = "SELECT * FROM REPORT ";
+        System.out.println(jdbcTemplate.query(sql, reportRowMapper));
+        return jdbcTemplate.query(sql, reportRowMapper);
     }
+
 
     @Override
     public Integer countReports() {
@@ -76,16 +79,18 @@ public class SqlReportRepository implements ReportRepository {
 
 
     private static ServiceReport fromResultSet(ResultSet rs) throws SQLException {
+
+
         return ServiceReport.parseReport(
                 rs.getString("ID_NUMBER_REPORT"),
                 rs.getString("ID_NUMBER_TECHNICIAN"),
                 rs.getString("DATE_INIT"),
                 rs.getString("DATE_FINISH"),
                 rs.getString("HOUR_INIT"),
-                rs.getString("HOUR_FINISH")
+                rs.getString("HOUR_FINISH"),
 
 
-                ).get();
+                rs.getString("NUM_WEEK")).get();
     }
 
 }

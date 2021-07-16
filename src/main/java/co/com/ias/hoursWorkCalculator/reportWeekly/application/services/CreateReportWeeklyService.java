@@ -2,6 +2,7 @@ package co.com.ias.hoursWorkCalculator.reportWeekly.application.services;
 
 
 import co.com.ias.hoursWorkCalculator.commons.IdentificationNumber;
+import co.com.ias.hoursWorkCalculator.commons.NonEmptyString;
 import co.com.ias.hoursWorkCalculator.report.application.domain.ServiceReport;
 import co.com.ias.hoursWorkCalculator.report.application.ports.out.ReportRepository;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.ReportWeekly;
@@ -12,8 +13,10 @@ import co.com.ias.hoursWorkCalculator.reportWeekly.application.model.CreateRepor
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.model.CreateReportWeeklyResponse;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.ports.in.CreateReportWeeklyUseCase;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.ports.out.ReportWeeklyRepository;
+import co.com.ias.hoursWorkCalculator.reportWeekly.infraestructure.adapters.out.SqlReportWeeklyRepository;
 import io.vavr.control.Validation;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -46,13 +49,12 @@ public class CreateReportWeeklyService implements CreateReportWeeklyUseCase {
 
         final ReportWeekly reportWeekly = validation.get();
           final ServiceReport serviceReport;
-        TechnicianIdentityNumber technicianIdentityNumber = reportWeekly.getTechnicianIdentity();
+        NonEmptyString technicianIdentityNumber = reportWeekly.getTechnicianIdentity();
         Optional<ReportWeekly> reportWeeklyById = reportWeeklyRepository.getReportWeeklyById(technicianIdentityNumber);
 
 
         Optional<ServiceReport> reportById = reportWeeklyRepository.getReportById(technicianIdentityNumber);
         Collection<ServiceReport> list = reportWeeklyRepository.listReports().stream().collect(Collectors.toList());
-
 
 
         if(validation.isInvalid()) {

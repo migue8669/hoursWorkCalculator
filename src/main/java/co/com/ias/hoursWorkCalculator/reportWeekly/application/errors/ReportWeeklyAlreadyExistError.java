@@ -1,5 +1,6 @@
 package co.com.ias.hoursWorkCalculator.reportWeekly.application.errors;
 
+import co.com.ias.hoursWorkCalculator.commons.NonEmptyString;
 import co.com.ias.hoursWorkCalculator.commons.errors.ApplicationError;
 import co.com.ias.hoursWorkCalculator.commons.errors.HttpStatusCode;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.TechnicianIdentityNumber;
@@ -7,9 +8,9 @@ import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.Technician
 import java.util.Map;
 
 public class ReportWeeklyAlreadyExistError extends ApplicationError {
-    private TechnicianIdentityNumber technicianIdentityNumber;
+    private NonEmptyString technicianIdentityNumber;
 
-    public ReportWeeklyAlreadyExistError(TechnicianIdentityNumber technicianIdentityNumber) {
+    public ReportWeeklyAlreadyExistError(NonEmptyString technicianIdentityNumber) {
         this.technicianIdentityNumber = technicianIdentityNumber;
     }
 
@@ -31,11 +32,11 @@ public class ReportWeeklyAlreadyExistError extends ApplicationError {
                 "idNumber", technicianIdentityNumber
         );    }
 
-    public TechnicianIdentityNumber getTechnicianIdentityNumber() {
+    public NonEmptyString getTechnicianIdentityNumber() {
         return technicianIdentityNumber;
     }
 
-    public void setTechnicianIdentityNumber(TechnicianIdentityNumber technicianIdentityNumber) {
+    public void setTechnicianIdentityNumber(NonEmptyString technicianIdentityNumber) {
         this.technicianIdentityNumber = technicianIdentityNumber;
     }
 }

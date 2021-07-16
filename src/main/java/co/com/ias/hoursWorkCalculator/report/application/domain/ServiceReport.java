@@ -8,7 +8,7 @@ import io.vavr.control.Validation;
 import java.util.List;
 
 public class ServiceReport {
-    private final TechnicianIdentityNumber technicianIdentity ;
+    private final NonEmptyString technicianIdentity ;
     private final ReportIdentityNumber reportIdentityNumber;
     private final NonEmptyString hourInit;
     private final NonEmptyString dateInit;
@@ -21,7 +21,7 @@ public class ServiceReport {
 
     private final NonEmptyString numWeek;
 
-    public ServiceReport(ReportIdentityNumber reportIdentityNumber, TechnicianIdentityNumber technicianIdentity, NonEmptyString hourInit, NonEmptyString dateInit, NonEmptyString hourFinish, NonEmptyString dateFinish, NonEmptyString numWeek) {
+    public ServiceReport(ReportIdentityNumber reportIdentityNumber, NonEmptyString technicianIdentity, NonEmptyString hourInit, NonEmptyString dateInit, NonEmptyString hourFinish, NonEmptyString dateFinish, NonEmptyString numWeek) {
         Validate.notNull(reportIdentityNumber, "report identity  can not be null");
 
         Validate.notNull(technicianIdentity, "Technician identity  can not be null");
@@ -41,7 +41,7 @@ public class ServiceReport {
 
     }
 
-    public TechnicianIdentityNumber getTechnicianIdentity() {
+    public NonEmptyString getTechnicianIdentity() {
         return technicianIdentity;
     }
 
@@ -77,7 +77,7 @@ public class ServiceReport {
                 reportIdentityNumber,
                 "serviceIdentity"
         );
-        var technicianIdentityValidation = TechnicianIdentityNumber.parse(
+        var technicianIdentityValidation = NonEmptyString.parse(
                 technicianIdentity,
                 "technicianIdentity"
         );

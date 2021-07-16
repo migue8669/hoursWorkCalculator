@@ -9,7 +9,7 @@ import io.vavr.control.Validation;
 import java.util.List;
 
 public class ReportWeekly {
-    private final TechnicianIdentityNumber technicianIdentity ;
+    private final NonEmptyString technicianIdentity ;
 
     private final ReportIdentityNumber reportIdentityNumber;
     private final NonEmptyString hour;
@@ -19,7 +19,7 @@ public class ReportWeekly {
     private final NonEmptyString extraNightHour;
     private final NonEmptyString extraSundayHour;
 
-    public TechnicianIdentityNumber getTechnicianIdentity() {
+    public NonEmptyString getTechnicianIdentity() {
         return technicianIdentity;
     }
 
@@ -51,7 +51,7 @@ public class ReportWeekly {
         return extraSundayHour;
     }
 
-    public ReportWeekly(TechnicianIdentityNumber technicianIdentity, ReportIdentityNumber reportIdentityNumber, NonEmptyString hour, NonEmptyString nightHour, NonEmptyString sundayHour, NonEmptyString extraHour, NonEmptyString extraNightHour, NonEmptyString extraSundayHour) {
+    public ReportWeekly(NonEmptyString technicianIdentity, ReportIdentityNumber reportIdentityNumber, NonEmptyString hour, NonEmptyString nightHour, NonEmptyString sundayHour, NonEmptyString extraHour, NonEmptyString extraNightHour, NonEmptyString extraSundayHour) {
         Validate.notNull(technicianIdentity, "Technician identity  can not be null");
         Validate.notNull(reportIdentityNumber, "report identity  can not be null");
         Validate.notNull(hour, "hour  can not be null");
@@ -83,7 +83,7 @@ public class ReportWeekly {
             String extraNightHour,
             String extraSundayHour
     ){
-        var technicianIdentityValidation = TechnicianIdentityNumber.parse(
+        var technicianIdentityValidation = NonEmptyString.parse(
                 technicianIdentity,
                 "technicianIdentity"
         );

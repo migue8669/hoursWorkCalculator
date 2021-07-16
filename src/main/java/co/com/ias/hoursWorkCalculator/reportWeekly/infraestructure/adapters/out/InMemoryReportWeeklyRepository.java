@@ -1,5 +1,6 @@
 package co.com.ias.hoursWorkCalculator.reportWeekly.infraestructure.adapters.out;
 
+import co.com.ias.hoursWorkCalculator.commons.NonEmptyString;
 import co.com.ias.hoursWorkCalculator.report.application.domain.ServiceReport;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.ReportWeekly;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.TechnicianIdentityNumber;
@@ -8,15 +9,15 @@ import co.com.ias.hoursWorkCalculator.reportWeekly.application.ports.out.ReportW
 import java.util.*;
 
 public class InMemoryReportWeeklyRepository implements ReportWeeklyRepository {
-    private final Map<TechnicianIdentityNumber, ReportWeekly> database = new HashMap<>();
-    private final Map<TechnicianIdentityNumber, ServiceReport> databaseRep = new HashMap<>();
+    private final Map<NonEmptyString, ReportWeekly> database = new HashMap<>();
+    private final Map<NonEmptyString, ServiceReport> databaseRep = new HashMap<>();
     @Override
-    public Optional<ReportWeekly> getReportWeeklyById(TechnicianIdentityNumber reportIdentityNumber) {
+    public Optional<ReportWeekly> getReportWeeklyById(NonEmptyString reportIdentityNumber) {
         return Optional.empty();
     }
 
     @Override
-    public Optional<ServiceReport> getReportById(TechnicianIdentityNumber technicianIdentityNumber) {
+    public Optional<ServiceReport> getReportById(NonEmptyString technicianIdentityNumber) {
         return Optional.empty();
     }
 

@@ -1,9 +1,12 @@
 package co.com.ias.hoursWorkCalculator.reportWeekly.infraestructure.adapters.out;
 
+import co.com.ias.hoursWorkCalculator.commons.NonEmptyString;
 import co.com.ias.hoursWorkCalculator.report.application.domain.ServiceReport;
+import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.Calculator;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.TechnicianIdentityNumber;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.ReportWeekly;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.ports.out.ReportWeeklyRepository;
+import co.com.ias.hoursWorkCalculator.reportWeekly.application.services.CreateReportWeeklyService;
 import io.vavr.collection.Array;
 import org.mockito.internal.matchers.Any;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -28,10 +31,11 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
 
         private final RowMapper<ReportWeekly> reportRowMapper = (rs, rowNum) -> fromResultSet(rs);
     private final RowMapper<ServiceReport> reportServiceRowMapper = (rs, rowNum) -> fromResultSetRS(rs);
+    static ArrayList<Object> dates = new ArrayList<Object>();
 
 
     @Override
-    public Optional<ReportWeekly> getReportWeeklyById(TechnicianIdentityNumber technicianIdentityNumber) {
+    public Optional<ReportWeekly> getReportWeeklyById(NonEmptyString technicianIdentityNumber) {
             final String sql = "SELECT * FROM REPORT_WEEKLY WHERE ID_NUMBER_REPORT = ?";
             PreparedStatementSetter preparedStatementSetter = ps -> {
                 ps.setString(1, technicianIdentityNumber.getValue());
@@ -49,7 +53,7 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
         }
 
     @Override
-    public Optional<ServiceReport> getReportById(TechnicianIdentityNumber technicianIdentityNumber) {
+    public Optional<ServiceReport> getReportById(NonEmptyString technicianIdentityNumber) {
         System.out.println("getReportByIdSqlReportWeeklyRep");
         final String sql = "SELECT * FROM REPORT WHERE ID_NUMBER_TECHNICIAN = ?";
         PreparedStatementSetter preparedStatementSetter = ps -> {
@@ -126,16 +130,15 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
             ).get();
         }
     private static ServiceReport fromResultSetRS(ResultSet rs) throws SQLException {
-        ArrayList<Object> dates = new ArrayList<Object>();
 
 
-            Object dato = new Object[7];
+            Object date = new Object[7];
             for (int i = 1; i <= 7; i++) {
-                dato = rs.getArray(i);
-                dates.add(dato);
+                date = rs.getArray(i);
+                dates.add(date);
             }
-
-
+        Calculator calculator = new Calculator();
+            calculator.calculate(dates);
         System.out.println("dates" +dates);
 
     return ServiceReport.parseReport(

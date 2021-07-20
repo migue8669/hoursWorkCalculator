@@ -1,16 +1,16 @@
 package co.com.ias.hoursWorkCalculator.reportWeekly.application.errors;
 
 import co.com.ias.hoursWorkCalculator.commons.NonEmptyString;
+import co.com.ias.hoursWorkCalculator.commons.TechnicianIdentityNumber;
 import co.com.ias.hoursWorkCalculator.commons.errors.ApplicationError;
 import co.com.ias.hoursWorkCalculator.commons.errors.HttpStatusCode;
-import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.TechnicianIdentityNumber;
 
 import java.util.Map;
 
 public class ReportWeeklyAlreadyExistError extends ApplicationError {
-    private NonEmptyString technicianIdentityNumber;
+    private TechnicianIdentityNumber technicianIdentityNumber;
 
-    public ReportWeeklyAlreadyExistError(NonEmptyString technicianIdentityNumber) {
+    public ReportWeeklyAlreadyExistError(TechnicianIdentityNumber technicianIdentityNumber) {
         this.technicianIdentityNumber = technicianIdentityNumber;
     }
 
@@ -29,14 +29,14 @@ public class ReportWeeklyAlreadyExistError extends ApplicationError {
     @Override
     public Map<String, Object> metadata() {
         return Map.of(
-                "idNumber", technicianIdentityNumber
+                "technicianIdentityNumber", technicianIdentityNumber
         );    }
 
-    public NonEmptyString getTechnicianIdentityNumber() {
+    public TechnicianIdentityNumber getTechnicianIdentityNumber() {
         return technicianIdentityNumber;
     }
 
-    public void setTechnicianIdentityNumber(NonEmptyString technicianIdentityNumber) {
+    public void setTechnicianIdentityNumber(TechnicianIdentityNumber technicianIdentityNumber) {
         this.technicianIdentityNumber = technicianIdentityNumber;
     }
 }

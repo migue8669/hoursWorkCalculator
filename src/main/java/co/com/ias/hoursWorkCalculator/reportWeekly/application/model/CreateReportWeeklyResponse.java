@@ -2,6 +2,7 @@ package co.com.ias.hoursWorkCalculator.reportWeekly.application.model;
 
 import co.com.ias.hoursWorkCalculator.commons.operation.ApplicationResponse;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.ReportWeekly;
+import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.WeeklyPojo;
 
 public class CreateReportWeeklyResponse implements ApplicationResponse {
     private final ReportWeekly reportWeekly;
@@ -15,6 +16,8 @@ public class CreateReportWeeklyResponse implements ApplicationResponse {
     }
     @Override
     public String toString() {
+        System.out.println("CreateReportWeeklyResponse");
+        System.out.println(reportWeekly);
         return "CreateReportWeeklyResponse{" +
                 "reportWeekly=" + reportWeekly +
                 '}';

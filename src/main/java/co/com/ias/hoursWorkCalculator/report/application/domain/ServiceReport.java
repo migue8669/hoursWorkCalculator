@@ -1,14 +1,12 @@
 package co.com.ias.hoursWorkCalculator.report.application.domain;
 
-import co.com.ias.hoursWorkCalculator.commons.InputAttributeError;
-import co.com.ias.hoursWorkCalculator.commons.NonEmptyString;
-import co.com.ias.hoursWorkCalculator.commons.Validate;
+import co.com.ias.hoursWorkCalculator.commons.*;
 import co.com.ias.hoursWorkCalculator.report.application.errors.InputDataError;
 import io.vavr.control.Validation;
 import java.util.List;
 
 public class ServiceReport {
-    private final NonEmptyString technicianIdentity ;
+    private final TechnicianIdentityNumber technicianIdentity ;
     private final ReportIdentityNumber reportIdentityNumber;
     private final NonEmptyString hourInit;
     private final NonEmptyString dateInit;
@@ -21,7 +19,7 @@ public class ServiceReport {
 
     private final NonEmptyString numWeek;
 
-    public ServiceReport(ReportIdentityNumber reportIdentityNumber, NonEmptyString technicianIdentity, NonEmptyString hourInit, NonEmptyString dateInit, NonEmptyString hourFinish, NonEmptyString dateFinish, NonEmptyString numWeek) {
+    public ServiceReport(ReportIdentityNumber reportIdentityNumber, TechnicianIdentityNumber technicianIdentity, NonEmptyString hourInit, NonEmptyString dateInit, NonEmptyString hourFinish, NonEmptyString dateFinish, NonEmptyString numWeek) {
         Validate.notNull(reportIdentityNumber, "report identity  can not be null");
 
         Validate.notNull(technicianIdentity, "Technician identity  can not be null");
@@ -41,7 +39,7 @@ public class ServiceReport {
 
     }
 
-    public NonEmptyString getTechnicianIdentity() {
+    public TechnicianIdentityNumber getTechnicianIdentity() {
         return technicianIdentity;
     }
 
@@ -77,7 +75,7 @@ public class ServiceReport {
                 reportIdentityNumber,
                 "serviceIdentity"
         );
-        var technicianIdentityValidation = NonEmptyString.parse(
+        var technicianIdentityValidation = TechnicianIdentityNumber.parse(
                 technicianIdentity,
                 "technicianIdentity"
         );

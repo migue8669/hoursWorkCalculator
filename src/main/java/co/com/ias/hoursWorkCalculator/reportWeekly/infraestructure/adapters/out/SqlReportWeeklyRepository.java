@@ -1,9 +1,9 @@
 package co.com.ias.hoursWorkCalculator.reportWeekly.infraestructure.adapters.out;
 
 import co.com.ias.hoursWorkCalculator.commons.NonEmptyString;
+import co.com.ias.hoursWorkCalculator.commons.TechnicianIdentityNumber;
 import co.com.ias.hoursWorkCalculator.report.application.domain.ServiceReport;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.Calculator;
-import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.TechnicianIdentityNumber;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.ReportWeekly;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.ports.out.ReportWeeklyRepository;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.services.CreateReportWeeklyService;
@@ -33,11 +33,24 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
     private final RowMapper<ServiceReport> reportServiceRowMapper = (rs, rowNum) -> fromResultSetRS(rs);
     static ArrayList<Object> dates = new ArrayList<Object>();
 
+    private ReportWeekly fromResultSet(ResultSet rs)  throws SQLException {
+        return ReportWeekly.WeeklyReport(
+                rs.getString("ID_NUMBER_TECHNICIAN"),
+
+                rs.getString("NUM_WEEK")
+
+
+
+        ).get();
+    }
 
     @Override
     public Optional<ReportWeekly> getReportWeeklyById(NonEmptyString technicianIdentityNumber) {
-            final String sql = "SELECT * FROM REPORT_WEEKLY WHERE ID_NUMBER_REPORT = ?";
+        System.out.println("sqlReport");
+            final String sql = "SELECT * FROM REPORT_WEEKLY WHERE ID_NUMBER_TECHNICIAN = ?";
             PreparedStatementSetter preparedStatementSetter = ps -> {
+                System.out.println(ps);
+
                 ps.setString(1, technicianIdentityNumber.getValue());
             };
             final ResultSetExtractor<Optional<ReportWeekly>> resultSetExtractor = rs -> {
@@ -53,18 +66,22 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
         }
 
     @Override
-    public Optional<ServiceReport> getReportById(NonEmptyString technicianIdentityNumber) {
+    public Optional<ReportWeekly> getReportById(TechnicianIdentityNumber technicianIdentityNumber) {
         System.out.println("getReportByIdSqlReportWeeklyRep");
+        System.out.println(technicianIdentityNumber);
         final String sql = "SELECT * FROM REPORT WHERE ID_NUMBER_TECHNICIAN = ?";
+        System.out.println(sql);
+
         PreparedStatementSetter preparedStatementSetter = ps -> {
-            ps.setString(1, technicianIdentityNumber.getValue());
+            ps.setString(1,technicianIdentityNumber.getValue());
+            System.out.println(ps);
         };
-        final ResultSetExtractor<Optional<ServiceReport>> resultSetExtractor = rs -> {
-            System.out.println("rs"+rs);
+        final ResultSetExtractor<Optional<ReportWeekly>> resultSetExtractor = rs -> {
+
             if (rs.next()) {
-                final ServiceReport serviceReport = fromResultSetRS(rs);
-                System.out.println("f"+serviceReport);
-                return Optional.of(serviceReport);
+                final ReportWeekly reportWeekly = fromResultSet(rs);
+                System.out.println("if rs.next"+reportWeekly);
+                return Optional.of(reportWeekly);
             } else {
                 return Optional.empty();
             }
@@ -72,63 +89,44 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
 
         return jdbcTemplate.query(sql, preparedStatementSetter, resultSetExtractor);    }
 
-
-    @Override
-        public void storeReportWeekly(ReportWeekly reportWeekly) {
-            jdbcTemplate.update(connection -> {
-                final PreparedStatement preparedStatement = connection
-                        .prepareStatement("INSERT INTO REPORT_WEEKLY (ID_NUMBER_TECHNICIAN,ID_NUMBER_REPORT, NORMAL_HOUR, NOCTURNAL_HOUR,SUNDAY_HOUR,EXTRA_NORMAL_HOUR,EXTRA_NOCTURNAL_HOUR,EXTRA_SUNDAY_HOUR) VALUES (?, ?, ?, ?,?,?,?,?)");
-                preparedStatement.setString(1, reportWeekly.getTechnicianIdentity().getValue());
-
-                preparedStatement.setString(2, reportWeekly.getReportIdentityNumber().getValue());
-                preparedStatement.setString(3, reportWeekly.getHour().getValue());
-                preparedStatement.setString(4, reportWeekly.getNightHour().getValue());
-                preparedStatement.setString(5, reportWeekly.getSundayHour().getValue());
-                preparedStatement.setString(6, reportWeekly.getExtraHour().getValue());
-                preparedStatement.setString(7, reportWeekly.getExtraNightHour().getValue());
-                preparedStatement.setString(8, reportWeekly.getExtraSundayHour().getValue());
-
-
-                return preparedStatement;
-            });
-        }
-
-        @Override
-        public Collection<ReportWeekly> listReportsWeekly(int limit, int skip) {
-            final String sql = "SELECT * FROM REPORT_WEEKLY LIMIT ? OFFSET ?";
-            return jdbcTemplate.query(sql, reportRowMapper, limit, skip);
-        }
     @Override
     public Collection<ServiceReport> listReports() {
         final String sql = "SELECT * FROM REPORT";
         System.out.println("ListReports"+jdbcTemplate.query(sql, reportServiceRowMapper));
         return jdbcTemplate.query(sql, reportServiceRowMapper);
-
     }
-        @Override
+
+    @Override
+    public void storeReportWeekly(ReportWeekly report) {
+        System.out.println("storeReportWeekly");
+        jdbcTemplate.update(connection -> {
+            final PreparedStatement preparedStatement = connection
+                    .prepareStatement("INSERT INTO REPORT_WEEKLY (ID_NUMBER_TECHNICIAN,NUM_WEEK) VALUES (?, ?)");
+            preparedStatement.setString(1, report.getTechnicianIdentity().getValue());
+
+            preparedStatement.setString(2, report.getNumWeek().getValue());
+
+
+
+            return preparedStatement;
+        });
+    }
+
+    @Override
+        public Collection<ReportWeekly> listReportsWeekly(int limit, int skip) {
+            final String sql = "SELECT * FROM REPORT_WEEKLY LIMIT ? OFFSET ?";
+            return jdbcTemplate.query(sql, reportRowMapper, limit, skip);
+        }
+
+
+
+    @Override
         public Integer countReportsWeekly() {
             String sql = "select count(*) from REPORT_WEEKLY";
             return jdbcTemplate.queryForObject(sql, Integer.class);
         }
 
 
-        private static ReportWeekly fromResultSet(ResultSet rs) throws SQLException {
-
-            return ReportWeekly.WeeklyReport(
-                    rs.getString("ID_NUMBER_TECHNICIAN"),
-
-                    rs.getString("ID_NUMBER_REPORT"),
-                    rs.getString("NORMAL_HOUR"),
-                    rs.getString("NOCTURNAL_HOUR"),
-                    rs.getString("SUNDAY_HOUR"),
-                    rs.getString("EXTRA_NORMAL_HOUR"),
-                    rs.getString("EXTRA_NOCTURNAL_HOUR"),
-                    rs.getString("EXTRA_SUNDAY_HOUR")
-
-
-
-            ).get();
-        }
     private static ServiceReport fromResultSetRS(ResultSet rs) throws SQLException {
 
 

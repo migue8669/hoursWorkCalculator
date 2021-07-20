@@ -10,9 +10,12 @@ import co.com.ias.hoursWorkCalculator.reportWeekly.application.ports.in.ListRepo
 
 import co.com.ias.hoursWorkCalculator.commons.UseCaseHttpExecutor;
 
+import co.com.ias.hoursWorkCalculator.reportWeekly.application.services.CreateReportWeeklyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -32,28 +35,31 @@ public class ReportWeeklyController {
         this.listReportUseCase = listReportUseCase;
     }
 
-    @GetMapping
-    public ResponseEntity listReportsHandler(
-            @RequestParam(name = "limit", defaultValue = "10") String limit,
-            @RequestParam(name = "skip", defaultValue = "0") String skip
-    ) {
-        Integer limitInt = Integer.parseInt(limit, 10);
-        Integer skipInt = Integer.parseInt(skip, 10);
-        return useCaseHttpExecutor.executeUseCase(
-                listReportWeeklyUseCase,
-                new ListWeeklyReportRequest(limitInt, skipInt)
-        );
-    }
 
 
-    @PostMapping
-    public ResponseEntity createReportWeeklyHandler(
+@PostMapping
+public ResponseEntity createReportWeeklyHandler(
             @RequestBody CreateReportWeeklyRequest request
     ) {
         return useCaseHttpExecutor.executeUseCase(
                 createReportWeeklyUseCase,
                 request
         );
+    }
+
+    @RequestMapping(value = "/{technicianIdentityNumber}/{weekNum}", method = RequestMethod.GET)
+    public ResponseEntity ReportByIdHandler(
+    @RequestParam(name = "limit", defaultValue = "10") String limit,
+    @RequestParam(name = "skip", defaultValue = "0") String skip
+    ) {
+        Integer limitInt = Integer.parseInt(limit, 10);
+        Integer skipInt = Integer.parseInt(skip, 10);
+        return useCaseHttpExecutor.executeUseCase(
+                listReportWeeklyUseCase,
+
+                new ListWeeklyReportRequest(limitInt, skipInt)
+        );
+
     }
 
 

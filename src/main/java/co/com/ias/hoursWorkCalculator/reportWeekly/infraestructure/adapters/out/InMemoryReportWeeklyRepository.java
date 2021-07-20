@@ -1,15 +1,15 @@
 package co.com.ias.hoursWorkCalculator.reportWeekly.infraestructure.adapters.out;
 
 import co.com.ias.hoursWorkCalculator.commons.NonEmptyString;
+import co.com.ias.hoursWorkCalculator.commons.TechnicianIdentityNumber;
 import co.com.ias.hoursWorkCalculator.report.application.domain.ServiceReport;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.ReportWeekly;
-import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.TechnicianIdentityNumber;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.ports.out.ReportWeeklyRepository;
 
 import java.util.*;
 
 public class InMemoryReportWeeklyRepository implements ReportWeeklyRepository {
-    private final Map<NonEmptyString, ReportWeekly> database = new HashMap<>();
+    private final Map<TechnicianIdentityNumber, ReportWeekly> database = new HashMap<TechnicianIdentityNumber, ReportWeekly>();
     private final Map<NonEmptyString, ServiceReport> databaseRep = new HashMap<>();
     @Override
     public Optional<ReportWeekly> getReportWeeklyById(NonEmptyString reportIdentityNumber) {
@@ -17,7 +17,7 @@ public class InMemoryReportWeeklyRepository implements ReportWeeklyRepository {
     }
 
     @Override
-    public Optional<ServiceReport> getReportById(NonEmptyString technicianIdentityNumber) {
+    public Optional<ReportWeekly> getReportById(TechnicianIdentityNumber technicianIdentityNumber) {
         return Optional.empty();
     }
 
@@ -37,6 +37,7 @@ database.put(report.getTechnicianIdentity(),report);
     public Collection<ReportWeekly> listReportsWeekly(int limit, int skip) {
         return database.values();
     }
+
 
     @Override
     public Integer countReportsWeekly() {

@@ -14,9 +14,8 @@ import org.springframework.context.annotation.Configuration;
 public class ReportWeeklyApplicationConfiguration {
     @Bean
     public CreateReportWeeklyUseCase createReportWeeklyServiceBean(
-              ReportWeeklyRepository reportWeeklyRepository,
-              ReportRepository reportRepository
-    ) {
+            ReportWeeklyRepository reportWeeklyRepository, ReportRepository reportRepository
+            ) {
         return new CreateReportWeeklyService(reportWeeklyRepository, reportRepository);
     }
     @Bean

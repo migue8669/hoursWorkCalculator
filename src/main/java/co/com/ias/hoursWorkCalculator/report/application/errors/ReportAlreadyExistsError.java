@@ -2,7 +2,7 @@ package co.com.ias.hoursWorkCalculator.report.application.errors;
 
 import co.com.ias.hoursWorkCalculator.commons.errors.ApplicationError;
 import co.com.ias.hoursWorkCalculator.commons.errors.HttpStatusCode;
-import co.com.ias.hoursWorkCalculator.report.application.domain.ReportIdentityNumber;
+import co.com.ias.hoursWorkCalculator.commons.ReportIdentityNumber;
 
 import java.util.Map;
 

@@ -1,29 +1,27 @@
-package co.com.ias.hoursWorkCalculator.report.application.domain;
+package co.com.ias.hoursWorkCalculator.commons;
 
-import co.com.ias.hoursWorkCalculator.commons.InputAttributeError;
-import co.com.ias.hoursWorkCalculator.commons.Validate;
 import io.vavr.control.Validation;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-public class TechnicianIdentityNumber {
+public class ReportIdentityNumber {
     private final String value;
 
     private static final Pattern pattern = Pattern.compile("^\\d{8,20}$");
-    private static final String NULL_MESSAGE = "Technician Identity Number can not be null";
-    private static final String EMPTY_MESSAGE = "Technician Identity Number can not be empty";
+    private static final String NULL_MESSAGE = "Service Identity Number can not be null";
+    private static final String EMPTY_MESSAGE = "Service Identity Number can not be empty";
     private static final String INVALID_PATTERN_MESSAGE = "Invalid identification number";
 
-    private TechnicianIdentityNumber(String value) {
+    public ReportIdentityNumber(String value) {
         Validate.notNull(value, NULL_MESSAGE);
         Validate.isTrue(StringUtils.isNotBlank(value), EMPTY_MESSAGE);
         Validate.isTrue(pattern.matcher(value).matches(), INVALID_PATTERN_MESSAGE);
         this.value = value;
     }
 
-    public static Validation<InputAttributeError, TechnicianIdentityNumber> parse(
+    public static Validation<InputAttributeError, ReportIdentityNumber> parse(
             String unsafeValue,
             String attributeName
     ) {
@@ -39,7 +37,7 @@ public class TechnicianIdentityNumber {
             return Validation.invalid(new InputAttributeError(attributeName, INVALID_PATTERN_MESSAGE));
         }
 
-        return Validation.valid(new TechnicianIdentityNumber(unsafeValue));
+        return Validation.valid(new ReportIdentityNumber(unsafeValue));
     }
 
 
@@ -53,7 +51,7 @@ public class TechnicianIdentityNumber {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TechnicianIdentityNumber that = (TechnicianIdentityNumber) o;
+        ReportIdentityNumber that = (ReportIdentityNumber) o;
         return Objects.equals(value, that.value);
     }
 
@@ -64,7 +62,7 @@ public class TechnicianIdentityNumber {
 
     @Override
     public String toString() {
-        return "TechnicianIdentityNumber{" +
+        return "ServiceIdentityNumber{" +
                 "value='" + value + '\'' +
                 '}';
     }

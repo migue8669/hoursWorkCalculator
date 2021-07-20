@@ -1,6 +1,6 @@
 package co.com.ias.hoursWorkCalculator.report.application.services;
 
-import co.com.ias.hoursWorkCalculator.report.application.domain.ReportIdentityNumber;
+import co.com.ias.hoursWorkCalculator.commons.ReportIdentityNumber;
 import co.com.ias.hoursWorkCalculator.report.application.domain.ServiceReport;
 import co.com.ias.hoursWorkCalculator.report.application.errors.InputDataError;
 import co.com.ias.hoursWorkCalculator.report.application.errors.ReportAlreadyExistsError;
@@ -21,8 +21,9 @@ public class CreateReportService implements CreateReportUseCase {
 
     public CreateReportResponse execute(CreateReportRequest request) {
         Validation<InputDataError, ServiceReport> validation = ServiceReport.parseReport(
-                request.getTechnicianIdentity(),
                 request.getReportIdentityNumber(),
+
+                request.getTechnicianIdentity(),
                 request.getHourInit(),
                 request.getDateInit(),
                 request.getHourFinish(),

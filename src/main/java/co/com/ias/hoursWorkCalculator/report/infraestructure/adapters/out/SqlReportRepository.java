@@ -1,7 +1,8 @@
 package co.com.ias.hoursWorkCalculator.report.infraestructure.adapters.out;
 
-import co.com.ias.hoursWorkCalculator.report.application.domain.ReportIdentityNumber;
+import co.com.ias.hoursWorkCalculator.commons.ReportIdentityNumber;
 import co.com.ias.hoursWorkCalculator.report.application.domain.ServiceReport;
+import co.com.ias.hoursWorkCalculator.commons.TechnicianIdentityNumber;
 import co.com.ias.hoursWorkCalculator.report.application.ports.out.ReportRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
@@ -27,12 +28,38 @@ public class SqlReportRepository implements ReportRepository {
     private final RowMapper<ServiceReport> reportRowMapper = (rs, rowNum) -> fromResultSet(rs);
 
     @Override
+    public Optional<ServiceReport> getReportByIdTechnician(TechnicianIdentityNumber technicianIdentityNumber) {
+        final String sql = "SELECT * FROM REPORT WHERE ID_NUMBER_TECHNICIAN = ?";
+        PreparedStatementSetter preparedStatementSetter = ps -> {
+            ps.setString(1, technicianIdentityNumber.getValue());
+            System.out.println(ps);
+        };
+        final ResultSetExtractor<Optional<ServiceReport>> resultSetExtractor = rs -> {
+            System.out.println("getReportByIdFromReportRepository");
+            System.out.println(rs);
+            if (rs.next()) {
+                System.out.println(" if rs.next() reportRepository");
+
+                final ServiceReport serviceReport = fromResultSet(rs);
+                return Optional.of(serviceReport);
+            } else {
+                System.out.println("else rs.next() reportRepository");
+                return Optional.empty();
+            }
+        };
+
+        return jdbcTemplate.query(sql, preparedStatementSetter, resultSetExtractor);
+    }
+
+    @Override
     public Optional<ServiceReport> getReportById(ReportIdentityNumber reportIdentityNumber) {
         final String sql = "SELECT * FROM REPORT WHERE ID_NUMBER_REPORT = ?";
         PreparedStatementSetter preparedStatementSetter = ps -> {
             ps.setString(1, reportIdentityNumber.getValue());
         };
         final ResultSetExtractor<Optional<ServiceReport>> resultSetExtractor = rs -> {
+            System.out.println("getReportByIdFromReportRepository");
+            System.out.println(rs);
             if (rs.next()) {
                 final ServiceReport serviceReport = fromResultSet(rs);
                 return Optional.of(serviceReport);

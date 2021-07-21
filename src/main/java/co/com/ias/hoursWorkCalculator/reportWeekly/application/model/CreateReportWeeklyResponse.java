@@ -2,7 +2,6 @@ package co.com.ias.hoursWorkCalculator.reportWeekly.application.model;
 
 import co.com.ias.hoursWorkCalculator.commons.operation.ApplicationResponse;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.ReportWeekly;
-import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.WeeklyPojo;
 
 public class CreateReportWeeklyResponse implements ApplicationResponse {
     private final ReportWeekly reportWeekly;

@@ -1,14 +1,9 @@
 package co.com.ias.hoursWorkCalculator.reportWeekly.infraestructure.adapters.out;
 
-import co.com.ias.hoursWorkCalculator.commons.NonEmptyString;
 import co.com.ias.hoursWorkCalculator.commons.TechnicianIdentityNumber;
 import co.com.ias.hoursWorkCalculator.report.application.domain.ServiceReport;
-import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.Calculator;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.ReportWeekly;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.ports.out.ReportWeeklyRepository;
-import co.com.ias.hoursWorkCalculator.reportWeekly.application.services.CreateReportWeeklyService;
-import io.vavr.collection.Array;
-import org.mockito.internal.matchers.Any;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -106,10 +101,16 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
         System.out.println("storeReportWeekly");
         jdbcTemplate.update(connection -> {
             final PreparedStatement preparedStatement = connection
-                    .prepareStatement("INSERT INTO REPORT_WEEKLY (ID_NUMBER_TECHNICIAN,NUM_WEEK) VALUES (?, ?)");
+                    .prepareStatement("INSERT INTO REPORT_WEEKLY (ID_NUMBER_TECHNICIAN, NORMAL_HOUR, NOCTURNAL_HOUR,SUNDAY_HOUR,EXTRA_NORMAL_HOUR,EXTRA_NOCTURNAL_HOUR,EXTRA_SUNDAY_HOUR,NUM_WEEK) VALUES (?, ?, ?, ?,?,?,?,?)");
             preparedStatement.setString(1, report.getTechnicianIdentity().getValue());
 
-            preparedStatement.setString(2, report.getNumWeek().getValue());
+            preparedStatement.setString(2, report.getHour().getValue());
+            preparedStatement.setString(3, report.getNightHour().getValue());
+            preparedStatement.setString(4, report.getSundayHour().getValue());
+            preparedStatement.setString(5, report.getExtraHour().getValue());
+            preparedStatement.setString(6, report.getExtraNightHour().getValue());
+            preparedStatement.setString(7, report.getExtraSundayHour().getValue());
+            preparedStatement.setString(8, report.getNumWeek().getValue());
 
 
 
@@ -140,9 +141,9 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
                 date = rs.getArray(i);
                 dates.add(date);
             }
-        Calculator calculator = new Calculator();
-            calculator.calculate(dates);
-        System.out.println("dates" +dates);
+ //       Calculator calculator = new Calculator();
+   //         calculator.calculate(dates);
+     //   System.out.println("dates" +dates);
 
     return ServiceReport.parseReport(
                 rs.getString("ID_NUMBER_REPORT"),

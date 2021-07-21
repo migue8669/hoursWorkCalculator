@@ -36,7 +36,12 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
     private ReportWeekly fromResultSet(ResultSet rs)  throws SQLException {
         return ReportWeekly.WeeklyReport(
                 rs.getString("ID_NUMBER_TECHNICIAN"),
-
+                rs.getString("NORMAL_HOUR"),
+                rs.getString("NOCTURNAL_HOUR"),
+                rs.getString("SUNDAY_HOUR"),
+                rs.getString("EXTRA_NORMAL_HOUR"),
+                rs.getString("EXTRA_NOCTURNAL_HOUR"),
+                rs.getString("EXTRA_SUNDAY_HOUR"),
                 rs.getString("NUM_WEEK")
 
 
@@ -45,7 +50,7 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
     }
 
     @Override
-    public Optional<ReportWeekly> getReportWeeklyById(NonEmptyString technicianIdentityNumber) {
+    public Optional<ReportWeekly> getReportWeeklyById(TechnicianIdentityNumber technicianIdentityNumber) {
         System.out.println("sqlReport");
             final String sql = "SELECT * FROM REPORT_WEEKLY WHERE ID_NUMBER_TECHNICIAN = ?";
             PreparedStatementSetter preparedStatementSetter = ps -> {
@@ -66,7 +71,7 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
         }
 
     @Override
-    public Optional<ReportWeekly> getReportById(TechnicianIdentityNumber technicianIdentityNumber) {
+    public Optional<ServiceReport> getReportById(TechnicianIdentityNumber technicianIdentityNumber) {
         System.out.println("getReportByIdSqlReportWeeklyRep");
         System.out.println(technicianIdentityNumber);
         final String sql = "SELECT * FROM REPORT WHERE ID_NUMBER_TECHNICIAN = ?";
@@ -76,12 +81,12 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
             ps.setString(1,technicianIdentityNumber.getValue());
             System.out.println(ps);
         };
-        final ResultSetExtractor<Optional<ReportWeekly>> resultSetExtractor = rs -> {
+        final ResultSetExtractor<Optional<ServiceReport>> resultSetExtractor = rs -> {
 
             if (rs.next()) {
-                final ReportWeekly reportWeekly = fromResultSet(rs);
-                System.out.println("if rs.next"+reportWeekly);
-                return Optional.of(reportWeekly);
+                final ServiceReport serviceReport = fromResultSetRS(rs);
+                System.out.println("if rs.next"+serviceReport);
+                return Optional.of(serviceReport);
             } else {
                 return Optional.empty();
             }

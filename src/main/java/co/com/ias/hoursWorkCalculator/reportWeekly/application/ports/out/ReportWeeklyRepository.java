@@ -9,9 +9,9 @@ import java.util.Collection;
 import java.util.Optional;
 
 public interface ReportWeeklyRepository {
-    Optional<ReportWeekly> getReportWeeklyById(NonEmptyString technicianIdentityNumber);
+    Optional<ReportWeekly> getReportWeeklyById(TechnicianIdentityNumber technicianIdentityNumber);
 
-    Optional<ReportWeekly> getReportById(TechnicianIdentityNumber technicianIdentityNumber);
+    Optional<ServiceReport> getReportById(TechnicianIdentityNumber technicianIdentityNumber);
 
     Collection<ServiceReport> listReports();
 

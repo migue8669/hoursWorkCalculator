@@ -12,12 +12,12 @@ public class InMemoryReportWeeklyRepository implements ReportWeeklyRepository {
     private final Map<TechnicianIdentityNumber, ReportWeekly> database = new HashMap<TechnicianIdentityNumber, ReportWeekly>();
     private final Map<NonEmptyString, ServiceReport> databaseRep = new HashMap<>();
     @Override
-    public Optional<ReportWeekly> getReportWeeklyById(NonEmptyString reportIdentityNumber) {
+    public Optional<ReportWeekly> getReportWeeklyById(TechnicianIdentityNumber reportIdentityNumber) {
         return Optional.empty();
     }
 
     @Override
-    public Optional<ReportWeekly> getReportById(TechnicianIdentityNumber technicianIdentityNumber) {
+    public Optional<ServiceReport> getReportById(TechnicianIdentityNumber technicianIdentityNumber) {
         return Optional.empty();
     }
 

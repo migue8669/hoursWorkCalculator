@@ -81,7 +81,7 @@ public class CreateReportWeeklyRequest implements ApplicationRequest {
 
     @Override
     public String toString() {
-        return "CreateReportWeeklyRequest{" +
+        return
                 "technicianIdentity='" + technicianIdentity + '\'' +
                 ", hour='" + hour + '\'' +
                 ", nightHour='" + nightHour + '\'' +
@@ -89,9 +89,9 @@ public class CreateReportWeeklyRequest implements ApplicationRequest {
                 ", extraHour='" + extraHour + '\'' +
                 ", extraNightHour='" + extraNightHour + '\'' +
                 ", extraSundayHour='" + extraSundayHour + '\'' +
-                ", numWeek='" + numWeek + '\'' +
+                ", numWeek='" + numWeek + '\''
 
-                '}';
+                ;
     }
 
     public CreateReportWeeklyRequest(String technicianIdentity, String hour, String nightHour, String sundayHour, String extraHour, String extraNightHour, String extraSundayHour, String numWeek) {

@@ -119,9 +119,9 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
     }
 
     @Override
-        public Collection<ReportWeekly> listReportsWeekly(int limit, int skip) {
-            final String sql = "SELECT * FROM REPORT_WEEKLY LIMIT ? OFFSET ?";
-            return jdbcTemplate.query(sql, reportRowMapper, limit, skip);
+        public Collection<ReportWeekly> listReportsWeekly( ) {
+            final String sql = "SELECT * FROM REPORT_WEEKLY";
+            return jdbcTemplate.query(sql, reportRowMapper);
         }
 
 

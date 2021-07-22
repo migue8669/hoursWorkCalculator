@@ -17,7 +17,7 @@ public interface ReportWeeklyRepository {
 
     void storeReportWeekly(ReportWeekly report);
 
-    Collection<ReportWeekly> listReportsWeekly(int limit, int skip);
+    Collection<ReportWeekly> listReportsWeekly();
 
 
 

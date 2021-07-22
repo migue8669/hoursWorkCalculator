@@ -18,12 +18,11 @@ public class ListWeeklyReportService implements ListReportWeeklyUseCase {
     @Override
     public ListWeeklyReportResponse execute(ListWeeklyReportRequest request) {
         Collection<ReportWeekly> reportWeeklies = repository.listReportsWeekly(
-                request.getLimit(),
-                request.getSkip()
+
         );
         System.out.println("reportWeeklies"+reportWeeklies);
 
         Integer total = repository.countReportsWeekly();
-        return new ListWeeklyReportResponse(reportWeeklies, total);
+        return new ListWeeklyReportResponse(reportWeeklies);
     }
 }

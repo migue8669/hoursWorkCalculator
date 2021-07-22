@@ -7,18 +7,18 @@ import java.util.Collection;
 
 public class ListWeeklyReportResponse implements ApplicationResponse {
     private final Collection<ReportWeekly> items;
-    private final Integer total;
+  //  private final Integer total;
 
-    public ListWeeklyReportResponse(Collection<ReportWeekly> items, Integer total) {
+    public ListWeeklyReportResponse(Collection<ReportWeekly> items) {
         this.items = items;
-        this.total = total;
+      //  this.total = total;
     }
 
     public Collection<ReportWeekly> getItems() {
         return items;
     }
 
-    public Integer getTotal() {
-        return total;
-    }
+   // public Integer getTotal() {
+     //   return total;
+    //}
 }

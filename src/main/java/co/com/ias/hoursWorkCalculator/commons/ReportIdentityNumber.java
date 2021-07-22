@@ -6,10 +6,12 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-public class ReportIdentityNumber {
+public class
+
+ReportIdentityNumber {
     private final String value;
 
-    private static final Pattern pattern = Pattern.compile("^\\d{8,20}$");
+    private static final Pattern pattern = Pattern.compile("([a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8})");
     private static final String NULL_MESSAGE = "Service Identity Number can not be null";
     private static final String EMPTY_MESSAGE = "Service Identity Number can not be empty";
     private static final String INVALID_PATTERN_MESSAGE = "Invalid identification number";

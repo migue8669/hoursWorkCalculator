@@ -34,7 +34,7 @@ database.put(report.getTechnicianIdentity(),report);
     }
 
     @Override
-    public Collection<ReportWeekly> listReportsWeekly(int limit, int skip) {
+    public Collection<ReportWeekly> listReportsWeekly( ) {
         return database.values();
     }
 

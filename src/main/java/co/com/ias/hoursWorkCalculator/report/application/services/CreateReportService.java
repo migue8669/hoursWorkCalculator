@@ -37,7 +37,7 @@ public class CreateReportService implements CreateReportUseCase {
         }
 
         final ServiceReport serviceReport = validation.get();
-
+        System.out.println(serviceReport.getReportIdentityNumber());
         ReportIdentityNumber reportIdentityNumber = serviceReport.getReportIdentityNumber();
         Optional<ServiceReport> reportById = repository.getReportById(reportIdentityNumber);
         if (reportById.isPresent()) {

@@ -9,7 +9,6 @@ public class ListReportResponse implements ApplicationResponse {
     private final Collection<ServiceReport> items;
     private final Integer total;
 
-
     public ListReportResponse(Collection<ServiceReport> items, Integer total) {
         this.items = items;
         this.total = total;

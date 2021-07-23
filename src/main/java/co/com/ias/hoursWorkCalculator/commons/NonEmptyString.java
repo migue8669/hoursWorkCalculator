@@ -37,8 +37,6 @@ public class NonEmptyString {
 
     @Override
     public String toString() {
-        return "NonEmptyString{" +
-                "value='" + value + '\'' +
-                '}';
+        return  value;
     }
 }

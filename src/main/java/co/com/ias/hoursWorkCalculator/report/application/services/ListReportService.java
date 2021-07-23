@@ -18,8 +18,7 @@ public class ListReportService implements ListReportsUseCase {
     @Override
     public ListReportResponse execute(ListReportRequest request) {
         Collection<ServiceReport> serviceReports = repository.listReports(
-                request.getLimit(),
-                request.getSkip()
+
         );
         Integer total = repository.countReports();
         return new ListReportResponse(serviceReports, total);

@@ -1,8 +1,6 @@
 package co.com.ias.hoursWorkCalculator.report.application.domain;
 
-import co.com.ias.hoursWorkCalculator.commons.InputAttributeError;
-import co.com.ias.hoursWorkCalculator.commons.NonEmptyString;
-import co.com.ias.hoursWorkCalculator.commons.Validate;
+import co.com.ias.hoursWorkCalculator.commons.*;
 import co.com.ias.hoursWorkCalculator.report.application.errors.InputDataError;
 import io.vavr.control.Validation;
 import java.util.List;
@@ -14,20 +12,22 @@ public class ServiceReport {
     private final NonEmptyString dateInit;
     private final NonEmptyString hourFinish;
     private final NonEmptyString dateFinish;
+
+    public NonEmptyString getNumWeek() {
+        return numWeek;
+    }
+
     private final NonEmptyString numWeek;
 
-
-    public ServiceReport(ReportIdentityNumber reportIdentityNumber, TechnicianIdentityNumber technicianIdentity, NonEmptyString hourInit, NonEmptyString dateInit, NonEmptyString hourFinish, NonEmptyString dateFinish, NonEmptyString numWeek, NonEmptyString week) {
-
+    public ServiceReport(ReportIdentityNumber reportIdentityNumber, TechnicianIdentityNumber technicianIdentity, NonEmptyString hourInit, NonEmptyString dateInit, NonEmptyString hourFinish, NonEmptyString dateFinish, NonEmptyString numWeek) {
         Validate.notNull(reportIdentityNumber, "report identity  can not be null");
 
         Validate.notNull(technicianIdentity, "Technician identity  can not be null");
-        Validate.notNull(hourInit, "hour Init  can not be null");
-        Validate.notNull(dateInit, "date Init can not be null");
-        Validate.notNull(hourFinish, "hour Finish can not be null");
-        Validate.notNull(dateFinish, "date Finish can not be null");
-        Validate.notNull(numWeek, "num week can not be null");
-
+        Validate.notNull(hourInit, "hourInit  can not be null");
+        Validate.notNull(dateInit, "dateInit can not be null");
+        Validate.notNull(hourFinish, "hourFinish can not be null");
+        Validate.notNull(dateFinish, "dateFinish can not be null");
+        Validate.notNull(numWeek, "numWeek can not be null");
 
         this.reportIdentityNumber = reportIdentityNumber;
         this.technicianIdentity = technicianIdentity;
@@ -35,11 +35,8 @@ public class ServiceReport {
         this.hourFinish = hourFinish;
         this.dateInit = dateInit;
         this.dateFinish = dateFinish;
-        this.numWeek=numWeek;
-    }
+        this.numWeek = numWeek;
 
-    public NonEmptyString getNumWeek() {
-        return numWeek;
     }
 
     public TechnicianIdentityNumber getTechnicianIdentity() {
@@ -73,9 +70,7 @@ public class ServiceReport {
             String dateInit,
             String hourFinish,
             String dateFinish,
-            String numWeek
-
-            ){
+            String numWeek){
         var reportIdentityNumberValidation = ReportIdentityNumber.parse(
                 reportIdentityNumber,
                 "serviceIdentity"
@@ -110,18 +105,16 @@ public class ServiceReport {
                 numWeek,
                 "numWeek"
         );
-
         return Validation.combine(
                 reportIdentityNumberValidation,
                 technicianIdentityValidation,
                 hourInitValidation,
                 dateInitValidation,
                 hourFinishValidation,
-                dateFinishValidation,
-                numWeekValidation
-           )
-                .ap((reportIdentityNumber1, technicianIdentity1, hourInit1, dateInit1, hourFinish1, dateFinish1, numWeek1) -> new ServiceReport(reportIdentityNumber1, technicianIdentity1, hourInit1, dateInit1, hourFinish1, dateFinish1, numWeek1, new NonEmptyString("numWeek"))).mapError(inputAttributeErrors ->
+                dateFinishValidation,numWeekValidation)
+                .ap(ServiceReport::new).mapError(inputAttributeErrors ->
                 {
+                    System.out.println();
                     String message="There was an error with the input report service data.";
                     final List<InputAttributeError> errors = inputAttributeErrors.asJava();
                     return new InputDataError(message,errors);

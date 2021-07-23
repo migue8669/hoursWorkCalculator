@@ -1,9 +1,9 @@
 package co.com.ias.hoursWorkCalculator.report.application.services;
 
 import co.com.ias.hoursWorkCalculator.commons.NonEmptyString;
-import co.com.ias.hoursWorkCalculator.report.application.domain.ReportIdentityNumber;
+import co.com.ias.hoursWorkCalculator.commons.ReportIdentityNumber;
+import co.com.ias.hoursWorkCalculator.commons.TechnicianIdentityNumber;
 import co.com.ias.hoursWorkCalculator.report.application.domain.ServiceReport;
-import co.com.ias.hoursWorkCalculator.report.application.domain.TechnicianIdentityNumber;
 import co.com.ias.hoursWorkCalculator.report.application.errors.ReportAlreadyExistsError;
 import co.com.ias.hoursWorkCalculator.report.application.model.CreateReportRequest;
 import co.com.ias.hoursWorkCalculator.report.application.model.CreateReportResponse;
@@ -55,7 +55,6 @@ public class CreateReportServiceTest {
                 new NonEmptyString("hourInit"),
                 new NonEmptyString("dateInit"),
                 new NonEmptyString("hourFinish"),
-                new NonEmptyString("dateFinish"),
                 new NonEmptyString("dateFinish"),
                 new NonEmptyString("numWeek")
 

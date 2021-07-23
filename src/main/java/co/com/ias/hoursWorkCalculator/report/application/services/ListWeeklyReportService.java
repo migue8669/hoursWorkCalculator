@@ -37,8 +37,6 @@ public class ListWeeklyReportService  implements ListReportWeeklyUseCase {
 
     public ListReportResponse execute(ListReportRequest request) {
         Collection<ServiceReport> reports = reportRepository.listReports(
-                request.getLimit(),
-                request.getSkip()
         );
         Integer total = reportRepository.countReports();
         return new ListReportResponse(reports, total);

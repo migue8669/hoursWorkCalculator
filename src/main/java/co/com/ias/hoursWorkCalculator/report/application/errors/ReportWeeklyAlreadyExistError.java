@@ -1,8 +1,8 @@
 package co.com.ias.hoursWorkCalculator.report.application.errors;
 
+import co.com.ias.hoursWorkCalculator.commons.TechnicianIdentityNumber;
 import co.com.ias.hoursWorkCalculator.commons.errors.ApplicationError;
 import co.com.ias.hoursWorkCalculator.commons.errors.HttpStatusCode;
-import co.com.ias.hoursWorkCalculator.report.application.domain.TechnicianIdentityNumber;
 
 import java.util.Map;
 

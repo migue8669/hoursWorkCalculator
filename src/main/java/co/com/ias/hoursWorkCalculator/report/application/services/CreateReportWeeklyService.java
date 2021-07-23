@@ -1,9 +1,9 @@
 package co.com.ias.hoursWorkCalculator.report.application.services;
 
-import co.com.ias.hoursWorkCalculator.report.application.domain.ReportIdentityNumber;
+import co.com.ias.hoursWorkCalculator.commons.TechnicianIdentityNumber;
 import co.com.ias.hoursWorkCalculator.report.application.domain.ReportWeekly;
 import co.com.ias.hoursWorkCalculator.report.application.domain.ServiceReport;
-import co.com.ias.hoursWorkCalculator.report.application.domain.TechnicianIdentityNumber;
+
 import co.com.ias.hoursWorkCalculator.report.application.errors.InputDataError;
 import co.com.ias.hoursWorkCalculator.report.application.errors.ReportWeeklyAlreadyExistError;
 import co.com.ias.hoursWorkCalculator.report.application.model.CreateReportWeeklyRequest;

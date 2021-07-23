@@ -14,7 +14,7 @@ public class TechnicianIdentityNumber {
     private static final String EMPTY_MESSAGE = "Technician Identity Number can not be empty";
     private static final String INVALID_PATTERN_MESSAGE = "Invalid identification number";
 
-    private TechnicianIdentityNumber(String value) {
+    public TechnicianIdentityNumber(String value) {
         Validate.notNull(value, NULL_MESSAGE);
         Validate.isTrue(StringUtils.isNotBlank(value), EMPTY_MESSAGE);
         Validate.isTrue(pattern.matcher(value).matches(), INVALID_PATTERN_MESSAGE);

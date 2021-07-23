@@ -1,8 +1,9 @@
 package co.com.ias.hoursWorkCalculator.report.application.domain;
 
-import co.com.ias.hoursWorkCalculator.commons.InputAttributeError;
-import co.com.ias.hoursWorkCalculator.commons.NonEmptyString;
-import co.com.ias.hoursWorkCalculator.commons.Validate;
+import co.com.ias.hoursWorkCalculator.commons.*;
+
+import co.com.ias.hoursWorkCalculator.commons.ReportIdentityNumber;
+import co.com.ias.hoursWorkCalculator.commons.TechnicianIdentityNumber;
 import co.com.ias.hoursWorkCalculator.report.application.errors.InputDataError;
 import io.vavr.control.Validation;
 

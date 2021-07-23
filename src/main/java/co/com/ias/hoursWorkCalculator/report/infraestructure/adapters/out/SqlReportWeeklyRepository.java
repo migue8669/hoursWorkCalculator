@@ -1,7 +1,8 @@
 package co.com.ias.hoursWorkCalculator.report.infraestructure.adapters.out;
 
+import co.com.ias.hoursWorkCalculator.commons.TechnicianIdentityNumber;
 import co.com.ias.hoursWorkCalculator.report.application.domain.ServiceReport;
-import co.com.ias.hoursWorkCalculator.report.application.domain.TechnicianIdentityNumber;
+
 import co.com.ias.hoursWorkCalculator.report.application.domain.ReportWeekly;
 import co.com.ias.hoursWorkCalculator.report.application.ports.out.ReportWeeklyRepository;
 import org.springframework.jdbc.core.JdbcTemplate;

@@ -1,6 +1,7 @@
 package co.com.ias.hoursWorkCalculator.report.application.domain;
 
 import co.com.ias.hoursWorkCalculator.commons.*;
+import co.com.ias.hoursWorkCalculator.commons.ReportIdentityNumber;
 import co.com.ias.hoursWorkCalculator.report.application.errors.InputDataError;
 import io.vavr.control.Validation;
 import java.util.List;
@@ -12,6 +13,8 @@ public class ServiceReport {
     private final NonEmptyString dateInit;
     private final NonEmptyString hourFinish;
     private final NonEmptyString dateFinish;
+
+
 
     public NonEmptyString getNumWeek() {
         return numWeek;

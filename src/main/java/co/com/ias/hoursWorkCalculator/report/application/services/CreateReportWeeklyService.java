@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 public class CreateReportWeeklyService implements CreateReportWeeklyUseCase {
+
     private final ReportWeeklyRepository reportWeeklyRepository;
     private final ReportRepository reportRepository;
 

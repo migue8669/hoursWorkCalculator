@@ -48,7 +48,7 @@ public class CreateReportServiceTest {
         );
     }
     @Test
-    void ifReportExistsItThrowsAnException() {
+    void ifStudentExistsItThrowsAnException() {
         ServiceReport serviceReport = new ServiceReport(
                 new ReportIdentityNumber("12345678"),
                 new TechnicianIdentityNumber("12345678"),
@@ -59,7 +59,7 @@ public class CreateReportServiceTest {
                 new NonEmptyString("numWeek")
 
 
-                );
+        );
         ReportRepository repository = Mockito.mock(ReportRepository.class);
         Mockito.when(repository.getReportById(ArgumentMatchers.any(ReportIdentityNumber.class)))
                 .thenReturn(Optional.of(serviceReport));
@@ -74,7 +74,7 @@ public class CreateReportServiceTest {
                 serviceReport.getNumWeek().getValue()
 
 
-                );
+        );
         assertAll(
                 () -> assertThrows(ReportAlreadyExistsError.class, () -> createReportService.execute(request)),
                 () -> Mockito.verify(repository, Mockito.times(0))

@@ -1,5 +1,6 @@
 package co.com.ias.hoursWorkCalculator.report.application.model;
 
+import co.com.ias.hoursWorkCalculator.commons.TechnicianIdentityNumber;
 import co.com.ias.hoursWorkCalculator.commons.operation.ApplicationRequest;
 
 import java.util.Objects;
@@ -11,6 +12,8 @@ public class CreateReportRequest implements ApplicationRequest {
     private String  dateInit;
     private String  hourFinish;
     private String  dateFinish;
+
+
 
     public String getNumWeek() {
         return numWeek;
@@ -97,13 +100,15 @@ public class CreateReportRequest implements ApplicationRequest {
                 '}';
     }
 
-    public CreateReportRequest(String technicianIdentity, String reportIdentityNumber, String hourInit, String dateInit, String hourFinish, String dateFinish, String numWeek) {
-        this.technicianIdentity = technicianIdentity;
+    public CreateReportRequest(String reportIdentityNumber, String technicianIdentity, String hourInit, String dateInit, String hourFinish, String dateFinish, String numWeek) {
         this.reportIdentityNumber = reportIdentityNumber;
+
+        this.technicianIdentity = technicianIdentity;
         this.hourInit = hourInit;
         this.dateInit = dateInit;
         this.hourFinish = hourFinish;
         this.dateFinish = dateFinish;
         this.numWeek = numWeek;
     }
+
 }

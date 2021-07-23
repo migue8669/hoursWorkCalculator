@@ -66,15 +66,15 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
         }
 
     @Override
-    public Optional<ServiceReport> getReportById(TechnicianIdentityNumber technicianIdentityNumber) {
+    public Optional<ServiceReport> getReportById(ReportWeekly reportWeekly) {
         System.out.println("getReportByIdSqlReportWeeklyRep");
-        System.out.println(technicianIdentityNumber);
-        final String sql = "SELECT * FROM REPORT WHERE ID_NUMBER_TECHNICIAN = ?";
+        System.out.println(reportWeekly);
+        final String sql = "SELECT * FROM REPORT WHERE ID_NUMBER_TECHNICIAN = ? AND NUM_WEEK = ?";
         System.out.println(sql);
 
         PreparedStatementSetter preparedStatementSetter = ps -> {
-            ps.setString(1,technicianIdentityNumber.getValue());
-            System.out.println(ps);
+            ps.setString(1,reportWeekly.getTechnicianIdentity().getValue());
+            ps.setString(2,reportWeekly.getNumWeek().getValue());
         };
         final ResultSetExtractor<Optional<ServiceReport>> resultSetExtractor = rs -> {
 
@@ -95,7 +95,12 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
         System.out.println("ListReports"+jdbcTemplate.query(sql, reportServiceRowMapper));
         return jdbcTemplate.query(sql, reportServiceRowMapper);
     }
-
+    @Override
+    public Collection<ReportWeekly> remove(ReportWeekly report) {
+        final String sql = "DELETE FROM REPORT_WEEKLY";
+        System.out.println("listReportsWtDeleted"+jdbcTemplate.query(sql, reportRowMapper));
+        return jdbcTemplate.query(sql, reportRowMapper);
+    }
     @Override
     public void storeReportWeekly(ReportWeekly report) {
         System.out.println("storeReportWeekly");

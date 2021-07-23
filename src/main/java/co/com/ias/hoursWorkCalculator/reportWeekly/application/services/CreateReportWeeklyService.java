@@ -60,13 +60,15 @@ public class CreateReportWeeklyService implements CreateReportWeeklyUseCase {
         );
 
         final ReportWeekly reportWeekly = validation.get();
+        if(validation.isInvalid()) {
+            throw validation.getError();
+        }
         System.out.println(reportWeekly.getTechnicianIdentity());
         TechnicianIdentityNumber technicianIdentityNumber = reportWeekly.getTechnicianIdentity();
 
         System.out.println(technicianIdentityNumber);
 
-        Optional<ServiceReport> reportWeeklyById = reportWeeklyRepository.getReportById(reportWeekly.getTechnicianIdentity());
-        System.out.println(reportWeeklyById.get().getTechnicianIdentity());
+        Optional<ServiceReport> reportWeeklyById = reportWeeklyRepository.getReportById(reportWeekly);
         Optional<ServiceReport> serviceReport = reportRepository.getReportByIdTechnician(technicianIdentityNumber);
 
         if(validation.isInvalid()) {
@@ -89,12 +91,13 @@ public class CreateReportWeeklyService implements CreateReportWeeklyUseCase {
         System.out.println(hourFinish);
         System.out.println(dateFinish);
         System.out.println(numWeek);
+
         int hourInitInt= Integer.parseInt(hourInit);
         int hourFinishInt=Integer.parseInt(hourFinish);
 
-        int auxHourNormal, auxExtraHourNormal;
-        int auxHourNocturnal, auxExtraNocturnal;
-        int auxHourSunday, auxExtraSunday;
+        double auxHourNormal, auxExtraHourNormal;
+        double auxHourNocturnal, auxExtraNocturnal;
+        double auxHourSunday, auxExtraSunday;
 
         NonEmptyString normalHourNonEmptyString = new NonEmptyString("0");
         NonEmptyString extraNormalHourNonEmptyString = new NonEmptyString("0");
@@ -114,49 +117,54 @@ public class CreateReportWeeklyService implements CreateReportWeeklyUseCase {
         calendar.setTime(dataFormat);
         int weekDay = calendar.get(Calendar.DAY_OF_WEEK);
 
-
-        if(hourInitInt>600&&hourFinishInt<2000){
-
-            auxHourNormal= hourFinishInt-hourInitInt;
-
-            if(auxHourNormal>480){
-                auxExtraHourNormal=auxHourNormal-480;
-                extraNormalHourNonEmptyString=new NonEmptyString(String.valueOf(auxExtraHourNormal));
-                extraNocturnalNonEmptyString.getValue().replace("0"," ").trim().replace(" ","0");
-
-            }
-
-            normalHourNonEmptyString= new NonEmptyString(String.valueOf(auxHourNormal).replace("0"," ").trim().replace(" ","0"));
-            System.out.println(normalHourNonEmptyString);
-           }
-
-        if(hourInitInt>1900 && hourFinishInt<800){
-
-            auxHourNocturnal=hourFinishInt-hourInitInt;
-            if(auxHourNocturnal>480){
-                auxExtraNocturnal=auxHourNocturnal-480;
-                extraNocturnalNonEmptyString=new NonEmptyString(String.valueOf(auxExtraNocturnal).replace("0"," ").trim().replace(" ","0"));
-
-            }
-            nocturnalHourNonEmptyString= new NonEmptyString(String.valueOf(auxHourNocturnal).replace("0"," ").trim().replace(" ","0"));
-            System.out.println(nocturnalHourNonEmptyString);
-        }
         if(weekDay==7){
             auxHourSunday=hourFinishInt-hourInitInt;
+            auxHourSunday=  auxHourSunday*0.01;
+
             if(auxHourSunday>480){
                 auxExtraSunday=auxHourSunday-480;
-
-                extraSundayHourNonEmptyString=new NonEmptyString(String.valueOf(auxExtraSunday).replace("0"," ").trim().replace(" ","0"));
+                auxExtraSunday=  auxExtraSunday*0.01;
+                extraSundayHourNonEmptyString=new NonEmptyString(String.valueOf(auxExtraSunday).replaceAll("0"," ").trim().replace(" ","0"));
 
             }
-            sundayHourNonEmptyString= new NonEmptyString(String.valueOf(auxHourSunday).replace("0"," ").trim().replace(" ","0"));
+            sundayHourNonEmptyString= new NonEmptyString(String.valueOf(auxHourSunday).replaceAll("0"," ").trim().replace(" ","0"));
             System.out.println(sundayHourNonEmptyString);
 
 
+        }else
+        if(hourInitInt>=600&&hourInitInt<=1900){
+
+            auxHourNormal= hourFinishInt-hourInitInt;
+            auxHourNormal= auxHourNormal*0.01;
+            if(auxHourNormal>480){
+                auxExtraHourNormal=auxHourNormal-480;
+                auxExtraHourNormal=  auxExtraHourNormal*0.01;
+                extraNormalHourNonEmptyString=new NonEmptyString(String.valueOf(auxExtraHourNormal));
+
+                extraNocturnalNonEmptyString.getValue().replaceAll("0"," ").trim().replace(" ","0");
+
+            }
+
+            normalHourNonEmptyString= new NonEmptyString(String.valueOf(auxHourNormal).replaceAll("0"," ").trim().replace(" ","0"));
+            System.out.println(normalHourNonEmptyString);
+           }else
+
+        if(hourInitInt>=1900){
+
+            auxHourNocturnal=hourFinishInt-hourInitInt;
+            auxHourNocturnal= auxHourNocturnal*0.01;
+            if(auxHourNocturnal>480){
+                auxExtraNocturnal=auxHourNocturnal-480;
+                auxExtraNocturnal=  auxExtraNocturnal*0.01;
+                extraNocturnalNonEmptyString=new NonEmptyString(String.valueOf(auxExtraNocturnal).replaceAll("0"," ").trim().replace(" ","0"));
+
+            }
+            nocturnalHourNonEmptyString= new NonEmptyString(String.valueOf(auxHourNocturnal).replaceAll("0"," ").trim().replace(" ","0"));
+            System.out.println(nocturnalHourNonEmptyString);
         }
 
 
-
+        //reportWeeklyRepository.remove(reportWeekly);
 
         ReportWeekly reportWeeklyDone = new ReportWeekly(reportWeekly.getTechnicianIdentity(),normalHourNonEmptyString,nocturnalHourNonEmptyString,sundayHourNonEmptyString,extraNormalHourNonEmptyString,extraNocturnalNonEmptyString,extraSundayHourNonEmptyString,reportWeekly.getNumWeek());
         reportWeeklyRepository.storeReportWeekly(reportWeeklyDone);

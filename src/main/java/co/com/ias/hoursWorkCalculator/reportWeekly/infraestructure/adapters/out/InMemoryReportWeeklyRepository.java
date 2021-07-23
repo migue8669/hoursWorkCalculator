@@ -17,15 +17,26 @@ public class InMemoryReportWeeklyRepository implements ReportWeeklyRepository {
     }
 
     @Override
-    public Optional<ServiceReport> getReportById(TechnicianIdentityNumber technicianIdentityNumber) {
+    public Optional<ServiceReport> getReportById(ReportWeekly reportWeekly) {
         return Optional.empty();
     }
+
 
     @Override
     public Collection<ServiceReport> listReports() {
         System.out.println("db"+databaseRep);
         return databaseRep.values();
     }
+
+
+
+    @Override
+    public Collection<ReportWeekly> remove(ReportWeekly reportWeekly) {
+
+        return Collections.singleton(database.remove(reportWeekly));
+    }
+
+
 
 
     @Override

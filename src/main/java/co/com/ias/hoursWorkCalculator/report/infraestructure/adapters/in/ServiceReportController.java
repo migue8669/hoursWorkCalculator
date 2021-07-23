@@ -35,6 +35,19 @@ public class ServiceReportController {
         );
 
     }
+    @RequestMapping(value = "/{technicianIdentityNumber}", method = RequestMethod.GET)
+    public ResponseEntity listReportByIdHandler(
+            @RequestParam(name = "limit", defaultValue = "10") String limit,
+            @RequestParam(name = "skip", defaultValue = "0") String skip
+    ) {
+        Integer limitInt = Integer.parseInt(limit, 10);
+        Integer skipInt = Integer.parseInt(skip, 10);
+        return useCaseHttpExecutor.executeUseCase(
+                listReportsUseCase,
+                new ListReportRequest(limitInt, skipInt)
+        );
+
+    }
 
 
     @PostMapping

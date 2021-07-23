@@ -62,6 +62,21 @@ public ResponseEntity createReportWeeklyHandler(
 
     }
 
+@DeleteMapping
+public ResponseEntity ReportHandler(
 
+        //@RequestParam(name = "limit", defaultValue = "10") String limit,
+        @RequestParam(name = "skip", defaultValue = "0") String skip
+) {
+    System.out.println("delete");
+    //  Integer limitInt = Integer.parseInt(limit, 10);
+    Integer skipInt = Integer.parseInt(skip, 10);
+    return useCaseHttpExecutor.executeUseCase(
+            listReportWeeklyUseCase,
+
+            new ListWeeklyReportRequest(skipInt)
+    );
+
+}
     }
 

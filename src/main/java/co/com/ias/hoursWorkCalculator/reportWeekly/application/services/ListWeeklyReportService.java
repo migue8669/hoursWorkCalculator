@@ -17,9 +17,8 @@ public class ListWeeklyReportService implements ListReportWeeklyUseCase {
 
     @Override
     public ListWeeklyReportResponse execute(ListWeeklyReportRequest request) {
-        Collection<ReportWeekly> reportWeeklies = repository.listReportsWeekly(
-
-        );
+        System.out.println(request);
+        Collection<ReportWeekly> reportWeeklies = repository.listReportsWeekly();
         System.out.println("reportWeeklies"+reportWeeklies);
 
         Integer total = repository.countReportsWeekly();

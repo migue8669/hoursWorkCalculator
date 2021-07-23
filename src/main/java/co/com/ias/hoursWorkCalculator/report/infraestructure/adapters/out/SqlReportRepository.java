@@ -36,7 +36,6 @@ public class SqlReportRepository implements ReportRepository {
         };
         final ResultSetExtractor<Optional<ServiceReport>> resultSetExtractor = rs -> {
             System.out.println("getReportByIdFromReportRepository");
-            System.out.println(rs);
             if (rs.next()) {
                 System.out.println(" if rs.next() reportRepository");
 

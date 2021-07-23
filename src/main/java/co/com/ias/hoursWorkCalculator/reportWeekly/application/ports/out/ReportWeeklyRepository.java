@@ -11,9 +11,15 @@ import java.util.Optional;
 public interface ReportWeeklyRepository {
     Optional<ReportWeekly> getReportWeeklyById(TechnicianIdentityNumber technicianIdentityNumber);
 
-    Optional<ServiceReport> getReportById(TechnicianIdentityNumber technicianIdentityNumber);
+//    Optional<ServiceReport> getReportById(TechnicianIdentityNumber technicianIdentityNumber);
+
+    Optional<ServiceReport> getReportById(ReportWeekly reportWeekly);
 
     Collection<ServiceReport> listReports();
+
+
+
+    Collection<ReportWeekly> remove(ReportWeekly reportWeekly);
 
     void storeReportWeekly(ReportWeekly report);
 

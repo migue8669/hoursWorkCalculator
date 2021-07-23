@@ -37,6 +37,7 @@ public class ServiceReportController {
     }
     @RequestMapping(value = "/{technicianIdentityNumber}", method = RequestMethod.GET)
     public ResponseEntity listReportByIdHandler(
+
             @RequestParam(name = "limit", defaultValue = "10") String limit,
             @RequestParam(name = "skip", defaultValue = "0") String skip
     ) {

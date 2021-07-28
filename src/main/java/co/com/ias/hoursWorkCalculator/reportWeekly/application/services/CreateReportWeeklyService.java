@@ -149,7 +149,7 @@ public class CreateReportWeeklyService implements CreateReportWeeklyUseCase {
             System.out.println(normalHourNonEmptyString);
            }else
 
-        if(hourInitInt>=1900){
+        if(hourInitInt>=1900 || hourInitInt>=0000 && hourFinishInt <0600){
 
             auxHourNocturnal=hourFinishInt-hourInitInt;
             auxHourNocturnal= auxHourNocturnal*0.01;
@@ -167,6 +167,7 @@ public class CreateReportWeeklyService implements CreateReportWeeklyUseCase {
         //reportWeeklyRepository.remove(reportWeekly);
 
         ReportWeekly reportWeeklyDone = new ReportWeekly(reportWeekly.getTechnicianIdentity(),normalHourNonEmptyString,nocturnalHourNonEmptyString,sundayHourNonEmptyString,extraNormalHourNonEmptyString,extraNocturnalNonEmptyString,extraSundayHourNonEmptyString,reportWeekly.getNumWeek());
+        System.out.println(reportWeeklyDone);
         reportWeeklyRepository.storeReportWeekly(reportWeeklyDone);
         return new CreateReportWeeklyResponse(reportWeeklyDone);
     }

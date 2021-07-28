@@ -1,7 +1,7 @@
 package co.com.ias.hoursWorkCalculator.report.application.ports.out;
 
 import co.com.ias.hoursWorkCalculator.commons.TechnicianIdentityNumber;
-import co.com.ias.hoursWorkCalculator.report.application.domain.ReportWeekly;
+import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.ReportWeekly;
 
 import java.util.Collection;
 import java.util.Optional;

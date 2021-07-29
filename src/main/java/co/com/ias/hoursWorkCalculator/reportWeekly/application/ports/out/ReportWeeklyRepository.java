@@ -1,6 +1,5 @@
 package co.com.ias.hoursWorkCalculator.reportWeekly.application.ports.out;
 
-import co.com.ias.hoursWorkCalculator.commons.NonEmptyString;
 import co.com.ias.hoursWorkCalculator.commons.TechnicianIdentityNumber;
 import co.com.ias.hoursWorkCalculator.report.application.domain.ServiceReport;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.ReportWeekly;
@@ -19,7 +18,7 @@ public interface ReportWeeklyRepository {
 
 
 
-    Collection<ReportWeekly> remove(ReportWeekly reportWeekly);
+    Optional<ReportWeekly> remove(ReportWeekly reportWeekly);
 
     void storeReportWeekly(ReportWeekly report);
 

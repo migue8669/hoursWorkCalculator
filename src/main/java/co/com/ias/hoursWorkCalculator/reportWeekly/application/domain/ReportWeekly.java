@@ -78,6 +78,9 @@ public class ReportWeekly {
         return numWeek;
     }
 
+
+
+
     public static Validation<InputDataError, ReportWeekly> WeeklyReport(
             String technicianIdentity,
             String hour,

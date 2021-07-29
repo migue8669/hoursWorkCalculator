@@ -31,9 +31,10 @@ public class InMemoryReportWeeklyRepository implements ReportWeeklyRepository {
 
 
     @Override
-    public Collection<ReportWeekly> remove(ReportWeekly reportWeekly) {
+    public Optional<ReportWeekly> remove(ReportWeekly reportWeekly) {
 
-        return Collections.singleton(database.remove(reportWeekly));
+        return Optional.empty();
+
     }
 
 

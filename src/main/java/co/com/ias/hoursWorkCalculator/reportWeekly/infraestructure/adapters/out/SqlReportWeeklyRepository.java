@@ -96,11 +96,27 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
         return jdbcTemplate.query(sql, reportServiceRowMapper);
     }
     @Override
-    public Collection<ReportWeekly> remove(ReportWeekly report) {
+    public Optional<ReportWeekly> remove(ReportWeekly reportWeekly) {
         final String sql = "DELETE FROM REPORT_WEEKLY";
-        System.out.println("listReportsWtDeleted"+jdbcTemplate.query(sql, reportRowMapper));
-        return jdbcTemplate.query(sql, reportRowMapper);
-    }
+        System.out.println(sql);
+
+        PreparedStatementSetter preparedStatementSetter = ps -> {
+         //   ps.setString(1,reportWeekly.getTechnicianIdentity().getValue());
+        };
+        final ResultSetExtractor<Optional<ReportWeekly>> resultSetExtractor = rs -> {
+
+            if (rs.next()) {
+                final ReportWeekly reportW = fromResultSet(rs);
+                System.out.println("if rs.next"+reportW);
+                return Optional.of(reportW);
+            } else {
+                return Optional.empty();
+            }
+        };
+
+        return jdbcTemplate.query(sql, preparedStatementSetter, resultSetExtractor);    }
+
+
     @Override
     public void storeReportWeekly(ReportWeekly report) {
         System.out.println("storeReportWeekly");

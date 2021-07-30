@@ -3,9 +3,11 @@ package co.com.ias.hoursWorkCalculator.reportWeekly.infraestructure.configuratio
 
 import co.com.ias.hoursWorkCalculator.report.application.ports.out.ReportRepository;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.ports.in.CreateReportWeeklyUseCase;
+import co.com.ias.hoursWorkCalculator.reportWeekly.application.ports.in.DeleteReportWeeklyUseCase;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.ports.in.ListReportWeeklyUseCase;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.ports.out.ReportWeeklyRepository;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.services.CreateReportWeeklyService;
+import co.com.ias.hoursWorkCalculator.reportWeekly.application.services.DeleteReportWeeklyServices;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.services.ListWeeklyReportService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,5 +27,10 @@ public class ReportWeeklyApplicationConfiguration {
         return new ListWeeklyReportService(repository);
     }
 
-
+    @Bean
+    public DeleteReportWeeklyUseCase listDeletedReportWeeklyUseCase(
+            ReportWeeklyRepository repository
+    ) {
+        return new DeleteReportWeeklyServices(repository);
+    }
 }

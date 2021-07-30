@@ -31,11 +31,12 @@ public class InMemoryReportWeeklyRepository implements ReportWeeklyRepository {
 
 
     @Override
-    public Optional<ReportWeekly> remove(ReportWeekly reportWeekly) {
+    public Collection<ReportWeekly> remove(ReportWeekly reportWeekly) {
 
-        return Optional.empty();
-
+        return Collections.singleton(database.remove(reportWeekly));
     }
+
+
 
 
 
@@ -55,4 +56,6 @@ database.put(report.getTechnicianIdentity(),report);
     public Integer countReportsWeekly() {
         return database.size();
     }
+
+
 }

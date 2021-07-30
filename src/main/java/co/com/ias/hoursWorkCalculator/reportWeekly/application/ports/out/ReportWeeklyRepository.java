@@ -18,7 +18,9 @@ public interface ReportWeeklyRepository {
 
 
 
-    Optional<ReportWeekly> remove(ReportWeekly reportWeekly);
+  //  Collection<ReportWeekly> remove(Collection<ReportWeekly> reportWeekly);
+
+    Collection<ReportWeekly> remove(ReportWeekly reportWeekly);
 
     void storeReportWeekly(ReportWeekly report);
 
@@ -27,4 +29,5 @@ public interface ReportWeeklyRepository {
 
 
     Integer countReportsWeekly();
+
 }

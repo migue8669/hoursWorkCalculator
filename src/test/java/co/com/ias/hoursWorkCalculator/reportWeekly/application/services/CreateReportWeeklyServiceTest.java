@@ -32,7 +32,8 @@ public class CreateReportWeeklyServiceTest {
 
         Mockito.when(repository.getReportById(ArgumentMatchers.any(ReportIdentityNumber.class)))
                 .thenReturn(Optional.empty());
-        CreateReportWeeklyService createReportWeeklyService = new CreateReportWeeklyService(reportWeeklyRepository,repository);
+        CreateReportWeeklyService createReportWeeklyService = new CreateReportWeeklyService(reportWeeklyRepository
+                ,repository);
         final String idNumber = "12345678";
         CreateReportWeeklyRequest request = new CreateReportWeeklyRequest(
                 "technicianIdentity",

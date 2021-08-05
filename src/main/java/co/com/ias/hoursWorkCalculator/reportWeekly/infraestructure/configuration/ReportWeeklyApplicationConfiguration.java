@@ -31,6 +31,8 @@ public class ReportWeeklyApplicationConfiguration {
     public DeleteReportWeeklyUseCase listDeletedReportWeeklyUseCase(
             ReportWeeklyRepository repository
     ) {
-        return new DeleteReportWeeklyServices(repository);
+        return new DeleteReportWeeklyServices
+
+                (repository);
     }
 }

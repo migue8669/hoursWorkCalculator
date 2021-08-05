@@ -31,7 +31,6 @@ public class ReportWeekly {
         Validate.notNull(extraHour, "extraHour can not be null");
         Validate.notNull(extraNightHour, "extraNightHour can not be null");
         Validate.notNull(extraSundayHour, "extraSundayHour can not be null");
-                Validate.notNull(numWeek, "numWeek  can not be null");
 
         this.technicianIdentity = technicianIdentity;
         this.hour = hour;

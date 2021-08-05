@@ -16,13 +16,15 @@ public class DeleteReportWeeklyServices implements DeleteReportWeeklyUseCase {
         this.repository = repository;
     }
 
+
     @Override
     public ListDeletedReportWeeklyResponse execute(ListDeletedReportWeeklyRequest request) {
         System.out.println(request);
         Collection<ReportWeekly> reportWeeklies = repository.listReportsWeekly();
-        boolean reportWeekly =  reportWeeklies.removeAll(reportWeeklies);
+        reportWeeklies= repository.remove(reportWeeklies);
+       // boolean reportWeekly =  reportWeeklies.removeAll(reportWeeklies);
 
-        System.out.println("reportWeeklies "+reportWeekly);
+        System.out.println("reportWeeklies "+reportWeeklies);
 
 
         Integer total = repository.countReportsWeekly();

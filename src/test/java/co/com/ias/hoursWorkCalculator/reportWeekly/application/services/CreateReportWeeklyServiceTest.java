@@ -3,12 +3,7 @@ package co.com.ias.hoursWorkCalculator.reportWeekly.application.services;
 import co.com.ias.hoursWorkCalculator.commons.NonEmptyString;
 import co.com.ias.hoursWorkCalculator.commons.ReportIdentityNumber;
 import co.com.ias.hoursWorkCalculator.commons.TechnicianIdentityNumber;
-import co.com.ias.hoursWorkCalculator.report.application.domain.ServiceReport;
-import co.com.ias.hoursWorkCalculator.report.application.errors.ReportAlreadyExistsError;
-import co.com.ias.hoursWorkCalculator.report.application.model.CreateReportRequest;
-import co.com.ias.hoursWorkCalculator.report.application.model.CreateReportResponse;
 import co.com.ias.hoursWorkCalculator.report.application.ports.out.ReportRepository;
-import co.com.ias.hoursWorkCalculator.report.application.services.CreateReportService;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.domain.ReportWeekly;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.errors.ReportWeeklyAlreadyExistError;
 import co.com.ias.hoursWorkCalculator.reportWeekly.application.model.CreateReportWeeklyRequest;
@@ -70,9 +65,7 @@ public class CreateReportWeeklyServiceTest {
                 new NonEmptyString("numWeek")
 
 
-
-
-        );
+                 );
         ReportWeeklyRepository weeklyRepository = Mockito.mock(ReportWeeklyRepository.class);
         ReportRepository repository = Mockito.mock(ReportRepository.class);
 

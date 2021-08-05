@@ -28,13 +28,12 @@ public class InMemoryReportWeeklyRepository implements ReportWeeklyRepository {
         return databaseRep.values();
     }
 
-
-
     @Override
-    public Collection<ReportWeekly> remove(ReportWeekly reportWeekly) {
-
-        return Collections.singleton(database.remove(reportWeekly));
+    public Collection<ReportWeekly> remove(Collection<ReportWeekly> reportWeekly) {
+        return database.values();
     }
+
+
 
 
 

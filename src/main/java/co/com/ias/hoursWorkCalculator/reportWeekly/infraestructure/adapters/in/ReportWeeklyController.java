@@ -11,6 +11,7 @@ import co.com.ias.hoursWorkCalculator.reportWeekly.application.ports.in.ListRepo
 
 import co.com.ias.hoursWorkCalculator.commons.UseCaseHttpExecutor;
 
+import co.com.ias.hoursWorkCalculator.reportWeekly.application.services.DeleteReportWeeklyServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -63,18 +64,15 @@ public ResponseEntity createReportWeeklyHandler(
     }
 
 @DeleteMapping
-public ResponseEntity ReportHandler(
-
-        //@RequestParam(name = "limit", defaultValue = "10") String limit,
-        @RequestParam(name = "skip", defaultValue = "0") String skip
+public ResponseEntity DeleteReportWeeklyHandler(
+        @RequestBody ListDeletedReportWeeklyRequest request
 ) {
     System.out.println("delete");
     //  Integer limitInt = Integer.parseInt(limit, 10);
-    Integer skipInt = Integer.parseInt(skip, 10);
     return useCaseHttpExecutor.executeUseCase(
             deleteReportWeeklyUseCase,
 
-            new ListDeletedReportWeeklyRequest(skipInt)
+            request
     );
 
 }

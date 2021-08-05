@@ -10,6 +10,10 @@ import co.com.ias.hoursWorkCalculator.report.application.ports.in.CreateReportUs
 import co.com.ias.hoursWorkCalculator.report.application.ports.out.ReportRepository;
 import io.vavr.control.Validation;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 
 public class CreateReportService implements CreateReportUseCase {
@@ -20,6 +24,8 @@ public class CreateReportService implements CreateReportUseCase {
     }
 
     public CreateReportResponse execute(CreateReportRequest request) {
+
+
         Validation<InputDataError, ServiceReport> validation = ServiceReport.parseReport(
                 request.getReportIdentityNumber(),
 
@@ -28,6 +34,7 @@ public class CreateReportService implements CreateReportUseCase {
                 request.getDateInit(),
                 request.getHourFinish(),
                 request.getDateFinish(),
+
         request.getNumWeek());
 
 

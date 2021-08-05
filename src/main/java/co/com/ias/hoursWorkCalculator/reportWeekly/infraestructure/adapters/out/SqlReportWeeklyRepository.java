@@ -80,14 +80,15 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
 
             if (rs.next()) {
                 final ServiceReport serviceReport = fromResultSetRS(rs);
-                System.out.println("if rs.next"+serviceReport);
+                System.out.println("preparedStatementSetter "+serviceReport.getNumWeek());
                 return Optional.of(serviceReport);
             } else {
                 return Optional.empty();
             }
         };
 
-        return jdbcTemplate.query(sql, preparedStatementSetter, resultSetExtractor);    }
+        return jdbcTemplate.query(sql, preparedStatementSetter, resultSetExtractor);
+    }
 
     @Override
     public Collection<ServiceReport> listReports() {
@@ -96,8 +97,10 @@ public class SqlReportWeeklyRepository  implements ReportWeeklyRepository {
         return jdbcTemplate.query(sql, reportServiceRowMapper);
     }
 
+
+
     @Override
-    public Collection<ReportWeekly> remove(ReportWeekly report) {
+    public Collection<ReportWeekly> remove(Collection<ReportWeekly> reportWeekly){
         final String sql = "DELETE FROM REPORT_WEEKLY";
         System.out.println("listReportsWtDeleted"+jdbcTemplate.query(sql, reportRowMapper));
         return jdbcTemplate.query(sql, reportRowMapper);
